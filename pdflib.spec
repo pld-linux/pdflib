@@ -6,7 +6,7 @@ Summary:	Portable C library for dynamically generating PDF files
 Summary(pl):	Przeno¶na biblioteka C do dynamicznej generacji plików PDF
 Name:		pdflib
 Version:	4.0.2
-Release:	2
+Release:	3
 License:	Alladin Free Public License
 Group:		Libraries
 Source0:	http://www.pdflib.com/pdflib/download/%{name}-%{version}.tar.gz
@@ -113,8 +113,11 @@ Statyczna biblioteka pdflib.
 libtoolize --copy --force
 aclocal --output=config/aclocal.m4
 autoconf
+if [ -f %{_pkgconfigdir}/libpng12.pc ] ; then
+	CPPFLAGS="`pkg-config libpng12 --cflags`"
+fi
 
-%configure \
+%configure CPPFLAGS="$CPPFLAGS" \
 	--enable-cxx \
 	--enable-shared-pdflib \
 	--with-py=%{py_sitedir} --with-pyincl=%{py_incdir} \
@@ -123,7 +126,8 @@ autoconf
 	--with-zlib \
 	--with-pnglib \
 	--with-tifflib
-%{__make}
+
+%{__make} CPPFLAGS="$CPPFLAGS" 
 
 %install
 rm -rf $RPM_BUILD_ROOT
