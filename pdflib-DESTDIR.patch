@@ -1,113 +1,118 @@
-diff -Nru pdflib-3.0/bind/java/Makefile.in pdflib-3.0.new/bind/java/Makefile.in
---- pdflib-3.0/bind/java/Makefile.in	Thu Jun 29 16:50:03 2000
-+++ pdflib-3.0.new/bind/java/Makefile.in	Thu Jun 29 16:51:12 2000
-@@ -74,12 +74,13 @@
- 	    -dlopen ../../pdflib/$(LIBPDF).la -dlopen $(SWIG_LIB) java pdfclock
+diff -Nur pdflib-3.02.orig/bind/java/Makefile.in pdflib-3.02/bind/java/Makefile.in
+--- pdflib-3.02.orig/bind/java/Makefile.in	Tue Aug 22 03:02:00 2000
++++ pdflib-3.02/bind/java/Makefile.in	Sat Sep 16 06:16:13 2000
+@@ -16,8 +16,8 @@
+ CC		= @CC@
+ RM      	= @RM@
+ LIBTOOL		= ../../libtool
+-prefix 		= @prefix@
+-exec_prefix 	= @exec_prefix@
++prefix 		= $(DESTDIR)@prefix@
++exec_prefix 	= $(DESTDIR)@exec_prefix@
+ 
+ PDFLIBLINK	= @PDFLIBLINK@
+ 
+@@ -29,7 +29,7 @@
+ .c.$(OBJ):
+ 	@$(LIBTOOL) --mode=compile $(CC) -c $(CPPFLAGS) $(DEFINES) $<
+ 
+-LANG_LIBDIR 	= @libdir@
++LANG_LIBDIR 	= $(DESTDIR)@libdir@
+ 
+ SWIG		= swig1.2 -I../../pdflib -java -stat
+ SWIG_LIB	= libpdf_java.la
+@@ -81,6 +81,7 @@
+ 	    -dlopen $(SWIG_LIB) java pdfclock
  
  install: $(SWIG_LIB) pdflib.jar
--	$(LIBTOOL) --mode=install $(INSTALL_DATA) $(SWIG_LIB) $(LANG_LIBDIR)
-+	mkdir -p $(DESTDIR)$(LANG_LIBDIR)
-+	$(LIBTOOL) --mode=install $(INSTALL_DATA) $(SWIG_LIB) $(DESTDIR)$(LANG_LIBDIR)
++	install -d $(LANG_LIBDIR)
+ 	$(LIBTOOL) --mode=install $(INSTALL_DATA) $(SWIG_LIB) $(LANG_LIBDIR)
  	@echo Copy pdflib.jar and javadoc to an appropriate directory
  	@echo and include the pdflib.jar file name in your CLASSPATH.
+diff -Nur pdflib-3.02.orig/bind/perl/Makefile.in pdflib-3.02/bind/perl/Makefile.in
+--- pdflib-3.02.orig/bind/perl/Makefile.in	Tue Aug 22 03:02:00 2000
++++ pdflib-3.02/bind/perl/Makefile.in	Sat Sep 16 06:16:38 2000
+@@ -27,8 +27,8 @@
+ .c.$(OBJ):
+ 	@$(LIBTOOL) --mode=compile $(CC) -c $(CPPFLAGS) $(DEFINES) $<
  
- uninstall:
--	$(LIBTOOL) --mode=uninstall $(RM) $(LANG_LIBDIR)/$(SWIG_LIB)
-+	$(LIBTOOL) --mode=uninstall $(RM) $(DESTDIR)$(LANG_LIBDIR)/$(SWIG_LIB)
+-LANG_LIBDIR 	= @PERLLIBDIR@
+-PERLMODDIR	= @PERLMODDIR@
++LANG_LIBDIR 	= $(DESTDIR)@PERLLIBDIR@
++PERLMODDIR	= $(DESTDIR)@PERLMODDIR@
+ PERLBIN		= @PERL@
  
- clean:
- 	-$(RM) *.$(OBJ) *.lo *.la *.class com .libs hello_java.pdf pdfclock_java.pdf pdflib.jar javadoc
-diff -Nru pdflib-3.0/bind/perl/Makefile.in pdflib-3.0.new/bind/perl/Makefile.in
---- pdflib-3.0/bind/perl/Makefile.in	Thu Jun 29 16:50:03 2000
-+++ pdflib-3.0.new/bind/perl/Makefile.in	Thu Jun 29 16:50:33 2000
-@@ -60,13 +60,14 @@
- 		-dlopen $(SWIG_LIB) $(PERLBIN) pdfclock.pl
- 
- install: $(SWIG_LIB)
-+	mkdir -p $(DESTDIR)$(LANG_LIBDIR)
- 	$(LIBTOOL) --mode=install \
--		$(INSTALL_DATA) $(SWIG_LIB) $(LANG_LIBDIR) >/dev/null
--	$(INSTALL_DATA) pdflib_pl.pm $(LANG_LIBDIR)
-+		$(INSTALL_DATA) $(SWIG_LIB) $(DESTDIR)$(LANG_LIBDIR) >/dev/null
-+	$(INSTALL_DATA) pdflib_pl.pm $(DESTDIR)$(LANG_LIBDIR)
- 
- uninstall:
- 	$(LIBTOOL) --mode=uninstall \
--		$(RM) $(LANG_LIBDIR)/$(SWIG_LIB) $(LANG_LIBDIR)/pdflib_pl.pm 
-+		$(RM) $(LANG_LIBDIR)/$(SWIG_LIB) $(DESTDIR)$(LANG_LIBDIR)/pdflib_pl.pm 
- 
- clean:
- 	-$(RM) *.$(OBJ) *.lo *.la .libs hello_pl.pdf pdfclock_pl.pdf
-diff -Nru pdflib-3.0/bind/python/Makefile.in pdflib-3.0.new/bind/python/Makefile.in
---- pdflib-3.0/bind/python/Makefile.in	Thu Jun 29 16:50:03 2000
-+++ pdflib-3.0.new/bind/python/Makefile.in	Thu Jun 29 16:50:54 2000
-@@ -62,11 +62,12 @@
- 		-dlopen $(SWIG_LIB) python pdfclock.py
+ SWIG		= swig1.2 -I../../pdflib -perl5 -shadow -stat
+@@ -63,6 +63,7 @@
+ 	-$(LIBTOOL) --mode=execute -dlopen $(SWIG_LIB) $(PERLBIN) pdfclock.pl
  
  install: $(SWIG_LIB)
-+	mkdir -p $(DESTDIR)$(LANG_LIBDIR)
++	install -d $(LANG_LIBDIR)
  	$(LIBTOOL) --mode=install \
--		$(INSTALL_DATA) $(SWIG_LIB) $(LANG_LIBDIR) >/dev/null
-+		$(INSTALL_DATA) $(SWIG_LIB) $(DESTDIR)$(LANG_LIBDIR) >/dev/null
+ 		$(INSTALL_DATA) $(SWIG_LIB) $(LANG_LIBDIR)
+ 	$(INSTALL_DATA) pdflib_pl.pm $(LANG_LIBDIR)
+diff -Nur pdflib-3.02.orig/bind/python/Makefile.in pdflib-3.02/bind/python/Makefile.in
+--- pdflib-3.02.orig/bind/python/Makefile.in	Tue Aug 22 03:02:00 2000
++++ pdflib-3.02/bind/python/Makefile.in	Sat Sep 16 06:17:05 2000
+@@ -19,8 +19,8 @@
  
- uninstall:
--	$(LIBTOOL) --mode=uninstall $(RM) $(LANG_LIBDIR)/$(SWIG_LIB)
-+	$(LIBTOOL) --mode=uninstall $(RM) $(DESTDIR)$(LANG_LIBDIR)/$(SWIG_LIB)
+ PDFLIBLINK	= @PDFLIBLINK@
  
- clean:
- 	-$(RM) *.$(OBJ) *.lo *.la .libs hello_py.pdf pdfclock_py.pdf pdflib_py.s*
-diff -Nru pdflib-3.0/bind/tcl/Makefile.in pdflib-3.0.new/bind/tcl/Makefile.in
---- pdflib-3.0/bind/tcl/Makefile.in	Thu Jun 29 16:50:04 2000
-+++ pdflib-3.0.new/bind/tcl/Makefile.in	Thu Jun 29 16:36:35 2000
-@@ -74,18 +74,14 @@
- 		-dlopen $(SWIG_LIB) $(TCLBIN) pdfclock.tcl
+-prefix 		= @prefix@
+-exec_prefix 	= @exec_prefix@
++prefix 		= $(DESTDIR)@prefix@
++exec_prefix 	= $(DESTDIR)@exec_prefix@
+ 
+ .SUFFIXES: .c .$(OBJ) .lo
+ 
+@@ -30,7 +30,7 @@
+ .c.$(OBJ):
+ 	@$(LIBTOOL) --mode=compile $(CC) -c $(CPPFLAGS) $(DEFINES) $<
+ 
+-LANG_LIBDIR 	= @PYTHONLIBDIR@
++LANG_LIBDIR 	= $(DESTDIR)@PYTHONLIBDIR@
+ 
+ SWIG		= swig1.2 -I../../pdflib -python -stat
+ SWIG_LIB	= pdflib_py.la
+@@ -65,6 +65,7 @@
+ 	-$(LIBTOOL) --mode=execute -dlopen $(SWIG_LIB) python pdfclock.py
  
  install: $(SWIG_LIB)
--	if test ! -d $(LANG_LIBDIR) ; then 	\
--	    mkdir -p $(LANG_LIBDIR);		\
--	    chmod 755 $(LANG_LIBDIR);		\
--	fi
-+	mkdir -p $(DESTDIR)$(LANG_LIBDIR); \
++	install -d $(LANG_LIBDIR)
  	$(LIBTOOL) --mode=install \
--		$(INSTALL_DATA) $(SWIG_LIB) $(LANG_LIBDIR) >/dev/null
--	$(INSTALL_DATA) pkgIndex.tcl $(LANG_LIBDIR)
-+		$(INSTALL_DATA) $(SWIG_LIB) $(DESTDIR)$(LANG_LIBDIR) >/dev/null
-+	$(INSTALL_DATA) pkgIndex.tcl $(DESTDIR)$(LANG_LIBDIR)
+ 		$(INSTALL_DATA) $(SWIG_LIB) $(LANG_LIBDIR)
  
- uninstall:
- 	$(LIBTOOL) --mode=uninstall \
--		$(RM) $(LANG_LIBDIR)/$(SWIG_LIB) $(LANG_LIBDIR)/pkgIndex.tcl
--	$(RM) -rf $(LANG_LIBDIR)
-+		$(RM) $(LANG_LIBDIR)/$(SWIG_LIB) $(DESTDIR)$(LANG_LIBDIR)/pkgIndex.tcl
+diff -Nur pdflib-3.02.orig/bind/tcl/Makefile.in pdflib-3.02/bind/tcl/Makefile.in
+--- pdflib-3.02.orig/bind/tcl/Makefile.in	Tue Aug 22 03:02:00 2000
++++ pdflib-3.02/bind/tcl/Makefile.in	Sat Sep 16 06:15:49 2000
+@@ -27,8 +27,8 @@
+ .c.$(OBJ):
+ 	@$(LIBTOOL) --mode=compile $(CC) -c $(CPPFLAGS) $(DEFINES) $<
  
- clean:
- 	-$(RM) *.$(OBJ) *.lo *.la .libs hello_tcl.pdf pdfclock_tcl.pdf pdflib_tcl.s*
-diff -Nru pdflib-3.0/pdflib/Makefile.in pdflib-3.0.new/pdflib/Makefile.in
---- pdflib-3.0/pdflib/Makefile.in	Thu Jun 29 16:50:04 2000
-+++ pdflib-3.0.new/pdflib/Makefile.in	Thu Jun 29 16:38:26 2000
-@@ -98,20 +98,13 @@
- 	-$(RM) *.$(OBJ) *.lo *.la *.bak .libs
+-LANG_LIBDIR 	= @TCLPACKAGEDIR@
+-TCLBIN		= @TCLBIN@
++LANG_LIBDIR 	= $(DESTDIR)@TCLPACKAGEDIR@
++TCLBIN		= $(DESTDIR)@TCLBIN@
  
- install: dummy
--	if test ! -d $(libdir) ; then 	\
--	    mkdir -p $(libdir);		\
--	    chmod 755 $(libdir);		\
--	fi
--	if test ! -d $(includedir) ; then 	\
--	    mkdir -p $(includedir);		\
--	    chmod 755 $(includedir);		\
--	fi
--	$(INSTALL_DATA) pdflib.h $(includedir)
--	$(LIBTOOL) --mode=install $(INSTALL_DATA) $(LIBPDF).la $(libdir)
-+	mkdir -p $(DESTDIR)$(libdir) $(DESTDIR)$(includedir); \
-+	$(INSTALL_DATA) pdflib.h $(DESTDIR)$(includedir)
-+	$(LIBTOOL) --mode=install $(INSTALL_DATA) $(LIBPDF).la $(DESTDIR)$(libdir)
+ SWIG		= swig1.2 -I../../pdflib -tcl -stat
+ SWIG_LIB	= pdflib_tcl.la
+diff -Nur pdflib-3.02.orig/pdflib/Makefile.in pdflib-3.02/pdflib/Makefile.in
+--- pdflib-3.02.orig/pdflib/Makefile.in	Tue Aug 22 03:02:00 2000
++++ pdflib-3.02/pdflib/Makefile.in	Sat Sep 16 06:15:49 2000
+@@ -17,12 +17,12 @@
+ LIBTOOL		= ../libtool
  
- uninstall: dummy
--	$(RM) $(includedir)/pdflib.h
--	-$(LIBTOOL) --mode=uninstall $(RM) $(libdir)/$(LIBPDF).la
-+	$(RM) $(DESTDIR)$(includedir)/pdflib.h
-+	-$(LIBTOOL) --mode=uninstall $(RM) $(DESTDIR)$(libdir)/$(LIBPDF).la
+ # installation directories
+-prefix = @prefix@
+-exec_prefix = @exec_prefix@
++prefix = $(DESTDIR)@prefix@
++exec_prefix = $(DESTDIR)@exec_prefix@
  
- depend: dummy
- 	cp Makefile.in Makefile.in.bak
+ # directories for the final library and include files for PDFlib users
+-libdir = @libdir@
+-includedir = @includedir@
++libdir = $(DESTDIR)@libdir@
++includedir = $(DESTDIR)@includedir@
+ 
+ TIFFLIBINC	= @TIFFLIBINC@
+ ZLIBINC		= @ZLIBINC@
