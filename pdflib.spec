@@ -112,7 +112,7 @@ Statyczna biblioteka pdflib.
 %build
 libtoolize --copy --force
 aclocal --output=config/aclocal.m4
-autoconf
+%{__autoconf}
 if [ -f %{_pkgconfigdir}/libpng12.pc ] ; then
 	CPPFLAGS="`pkg-config libpng12 --cflags`"
 fi
