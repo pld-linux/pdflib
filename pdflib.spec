@@ -127,7 +127,7 @@ Statyczna biblioteka pdflib.
 	--with-pnglib \
 	--with-tifflib
 
-%{__make} CPPFLAGS="$CPPFLAGS" 
+%{__make} CPPFLAGS="$CPPFLAGS"
 
 %install
 rm -rf $RPM_BUILD_ROOT
