@@ -1,0 +1,11 @@
+--- pdflib-4.0.3/bind/perl/pdflib_pl.pm~	2001-03-22 19:14:50.000000000 +0100
++++ pdflib-4.0.3/bind/perl/pdflib_pl.pm	2004-06-03 12:31:50.654653776 +0200
+@@ -2,7 +2,7 @@
+ package pdflib_pl;
+ require Exporter;
+ require DynaLoader;
+-$VERSION=4.0;
++$VERSION='4.0';
+ @ISA = qw(Exporter DynaLoader);
+ package pdflibc;
+ bootstrap pdflib_pl;
