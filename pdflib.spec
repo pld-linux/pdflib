@@ -1,13 +1,21 @@
+%include        /usr/lib/rpm/macros.perl
 Summary:	Portable C library for dynamically generating PDF files
 Name:		pdflib
-Version:	2.01
+Version:	3.0
 Release:	1
 License:	GPL
 Group:		Libraries
 Group(fr):	Librairies
 Group(pl):	Biblioteki
-Source0:	http://www.ifconnection.de/~tm/pdflib/%{name}-%{version}.tar.gz
-Patch0:		pdflib-soname.patch
+Source0:	http://www.pdflib.com/pdflib/download/%{name}-%{version}.tar.gz
+Patch0:		pdflib-DESTDIR.patch
+BuildRequires:	python-devel
+BuildRequires:	perl
+BuildRequires:	tcl-devel
+BuildRequires:	zlib-devel
+BuildRequires:	libpng-devel
+BuildRequires:	libtiff-devel
+BuildRequires:	python-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -20,13 +28,47 @@ format in the PDFlib distribution.
 
 %package devel
 Summary:	Header file for pdflib
-Group:		Libraries
-Group(fr):	Librairies
-Group(pl):	Biblioteki
+Group:		Development/Libraries
+Requires:	%{name} = %{version}
 
 %description devel
 This package contains the files needed for compiling programs using
 the PDF library.
+
+%package perl
+Summary:	Perl bindings for pdflib
+Group:		Development/Languages/Perl
+Group(pl):	Programowanie/Jêzyki/Perl
+Requires:	%{name} = %{version}
+
+%description perl
+Perl bindings for pdflib.
+
+%package tcl
+Summary:	Tcl bindings for pdflib
+Group:		Development/Languages/Tcl
+Group(pl):	Programowanie/Jêzyki/Tcl
+Requires:	%{name} = %{version}
+
+%description tcl
+Tcl bindings for pdflib.
+
+%package python
+Summary:	Python bindings for pdflib
+Group:		Development/Languages/Python
+Group(pl):	Programowanie/Jêzyki/Python
+Requires:	%{name} = %{version}
+
+%description python
+Python bindings for pdflib.
+
+%package static
+Summary:	Static libraries for pdflib
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}
+
+%description static
+Static libraries for pdflib.
 
 %prep
 %setup -q
@@ -40,24 +82,15 @@ LDFLAGS="-s"; export LDFLAGS
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_prefix}/{include,lib/perl5/site_perl/i386-linux} \
-	$RPM_BUILD_ROOT%{_libdir}/{python,tcl8.0/pdflib}
 
-cd pdflib
-install -c pdflib.h $RPM_BUILD_ROOT%{_includedir}
-install -c libpdf2.01.so $RPM_BUILD_ROOT%{_libdir}
-%{__make} libpdf2.01.a
-install -c libpdf2.01.a $RPM_BUILD_ROOT%{_libdir}
-ln -s libpdf2.01.so $RPM_BUILD_ROOT%{_libdir}/libpdf.so
-cd ../bind/perl
-install -c pdflib.so $RPM_BUILD_ROOT%{_libdir}/perl5/site_perl/i386-linux
-install -c pdflib.pm $RPM_BUILD_ROOT%{_libdir}/perl5/site_perl/i386-linux
-cd ../python
-install -c pdflib.so $RPM_BUILD_ROOT%{_libdir}/python
-cd ../tcl
-install -c pdflib.so $RPM_BUILD_ROOT%{_libdir}/tcl8.0/pdflib
-install -c pkgIndex.tcl $RPM_BUILD_ROOT%{_libdir}/tcl8.0/pdflib
-cd ../..
+%{__make} install DESTDIR=$RPM_BUILD_ROOT
+
+strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/lib*.so.*.* \
+	$RPM_BUILD_ROOT%{perl_sitearch}/pdflib_pl.so.*.* \
+	$RPM_BUILD_ROOT%{_libdir}/tcl8.0/pdflib/pdflib_tcl.so.*.* \
+	$RPM_BUILD_ROOT%{_libdir}/python1.5/lib-dynload/pdflib_py.so.*.*
+
+gzip -9nf readme.txt doc/*.txt
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -67,15 +100,32 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc readme.txt doc/*
-%{_libdir}/libpdf2.01.so
-%{_libdir}/libpdf.so
-%{_libdir}/perl5/site_perl/i386-linux/pdflib.so
-%{_libdir}/perl5/site_perl/i386-linux/pdflib.pm
-%{_libdir}/python/pdflib.so
-%{_libdir}/tcl8.0/pdflib
+%attr(755,root,root) %{_libdir}/lib*.so.*.*
 
 %files devel
 %defattr(644,root,root,755)
+%doc *.gz doc/*
+%attr(755,root,root) %{_libdir}/lib*.so
+%attr(755,root,root) %{_libdir}/lib*.la
 %{_includedir}/pdflib.h
-%{_libdir}/libpdf2.01.a
+
+%files perl
+%defattr(644,root,root,755)
+%{perl_sitearch}/pdflib_pl.pm
+%attr(755,root,root) %{perl_sitearch}/pdflib_pl.so*
+
+%files tcl
+%defattr(644,root,root,755)
+%{_libdir}/tcl8.0/pdflib/pdflib_tcl.so.*
+%{_libdir}/tcl8.0/pdflib/pkgIndex.tcl
+
+%files python
+%defattr(644,root,root,755)
+%{_libdir}/python1.5/lib-dynload/pdflib_py.so.*
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/libpdf.a
+%{perl_sitearch}/pdflib_pl.a
+%{_libdir}/tcl8.0/pdflib/pdflib_tcl.a
+%{_libdir}/python1.5/lib-dynload/pdflib_py.a
