@@ -17,7 +17,7 @@ BuildRequires:	python-devel
 BuildRequires:	perl
 BuildRequires:	tcl-devel
 BuildRequires:	zlib-devel
-BuildRequires:	libpng >= 1.0.8
+BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	libtiff-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
