@@ -7,7 +7,7 @@ Summary:	Portable C library for dynamically generating PDF files
 Summary(pl):	Przeno¶na biblioteka C do dynamicznej generacji plików PDF
 Name:		pdflib
 Version:	4.0.0
-Release:	1
+Release:	2
 License:	Alladin Free Public License
 Group:		Libraries
 Group(de):	Libraries
@@ -16,6 +16,7 @@ Group(fr):	Librairies
 Group(pl):	Biblioteki
 Source0:	http://www.pdflib.com/pdflib/download/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
+Patch1:		%{name}-shared-libs.patch
 BuildRequires:	python-devel
 BuildRequires:	perl-devel >= 5.6.1
 BuildRequires:	tcl-devel
@@ -116,48 +117,41 @@ Statyczna biblioteka pdflib.
 
 %prep
 %setup -q
-%patch -p1
+%patch0 -p1
+%patch1 -p1
 
 %build
 libtoolize --copy --force
 aclocal --output=config/aclocal.m4
 autoconf
-# build as shared library - bindings are not build
-%configure \
-	--enable-cxx \
-	--enable-shared-pdflib
-#	--with-zlib \
-#	--with-pnglib \
-#	--with-tifflib
-%{__make}
- 
-install -d pdf-libs
-cp -a pdflib/.libs/* pdf-libs
-rm -f pdf-libs/libpdf_*
-mv -f pdf-libs/libpdf.lai pdf-libs/libpdf.la
-%{__make} distclean
 
-# build as static library - bindings are build
 %configure \
 	--enable-cxx \
+	--enable-shared-pdflib \
 	--with-py=%{python_dir} --with-pyincl=%{python_include_dir} \
 	--with-perl=%{_bindir}/perl \
-	--with-tcl=%{_bindir}/tclsh
-#	--with-zlib \
-#	--with-pnglib \
-#	--with-tifflib
+	--with-tcl=%{_bindir}/tclsh \
+	--with-zlib \
+	--with-pnglib \
+	--with-tifflib
 %{__make}
-
+ 
 %install
 rm -rf $RPM_BUILD_ROOT
+
+# arrrghh!!! libtool 1.4 supports linking with non-installed library,
+# but without DESTDIR! use hack to avoid "relinking" (which requires
+# libpdf already installed in /usr/lib).
+for f in bind/{perl/pdflib_pl,python/pdflib_py,tcl/pdflib_tcl}.la ; do
+	sed -e '/^relink_command=/d' $f > $f.new
+	mv -f $f.new $f
+done
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
 install ./bind/cpp/pdflib.hpp $RPM_BUILD_ROOT%{_includedir}
 
-cp -a pdf-libs/* $RPM_BUILD_ROOT%{_libdir}
-rm -f $RPM_BUILD_ROOT%{_libdir}/libpdf_.la
-
+rm -f doc/readme_{ebcdic,mac,win}.txt
 gzip -9nf readme.txt doc/*.txt
 
 %clean
@@ -185,12 +179,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files tcl
 %defattr(644,root,root,755)
-%{_libdir}/tcl*/pdflib/pdflib_tcl.so.*
+%attr(755,root,root) %{_libdir}/tcl*/pdflib/pdflib_tcl.so.*
 %{_libdir}/tcl*/pdflib/pkgIndex.tcl
 
 %files python
 %defattr(644,root,root,755)
-%{python_dir}/lib-dynload/pdflib_py.so.*
+%attr(755,root,root) %{python_dir}/lib-dynload/pdflib_py.so.*
 
 %files static
 %defattr(644,root,root,755)
