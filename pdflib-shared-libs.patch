@@ -64,7 +64,7 @@ diff -urN pdflib-4.0.0.org/configure.in pdflib-4.0.0/configure.in
 -PDFLIBCONVENIENT="\$(top_builddir)/pdflib/libpdf_.la $INTERNALLIBS $EXTERNALLIBS"
 -PDFLIBLINKSELF="$RPATH $PDFLIBCONVENIENT"
 +PDFLIBCONVENIENT="\$(top_builddir)/pdflib/libpdf.la $INTERNALLIBS $EXTERNALLIBS"
-+PDFLIBLINKSELF="$RPATH \$(top_builddir)/pdflib/libpdf_.la"
++PDFLIBLINKSELF="$RPATH \$(top_builddir)/pdflib/libpdf_.la $EXTERNALLIBS"
  PDFLIBLINK="\$(top_builddir)/pdflib/libpdf.la $EXTERNALLIBS"
  
  AC_SUBST(EXTERNALLIBS)
