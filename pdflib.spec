@@ -4,11 +4,11 @@
 %define python_include_dir %(echo `python -c "import sys; print (sys.prefix + '/include/python' + sys.version[:3])"`)
 
 Summary:	Portable C library for dynamically generating PDF files
-Summary(pl):	Przenaszalnia biblioteka C do dynamicznej generacji plików PDF
+Summary(pl):	Przeno¶na biblioteka C do dynamicznej generacji plików PDF
 Name:		pdflib
 Version:	4.0.0
 Release:	1
-License:	GPL
+License:	Alladin Free Public License
 Group:		Libraries
 Group(de):	Libraries
 Group(es):	Bibliotecas
@@ -126,12 +126,15 @@ autoconf
 %configure \
 	--enable-cxx \
 	--enable-shared-pdflib
+#	--with-zlib \
+#	--with-pnglib \
+#	--with-tifflib
 %{__make}
  
 install -d pdf-libs
 cp -a pdflib/.libs/* pdf-libs
-rm pdf-libs/libpdf.la
-sed  -e 's/^installed=.*/installed=yes/' pdflib/libpdf.la >pdf-libs/libpdf.la
+rm -f pdf-libs/libpdf_*
+mv -f pdf-libs/libpdf.lai pdf-libs/libpdf.la
 %{__make} distclean
 
 # build as static library - bindings are build
@@ -140,6 +143,9 @@ sed  -e 's/^installed=.*/installed=yes/' pdflib/libpdf.la >pdf-libs/libpdf.la
 	--with-py=%{python_dir} --with-pyincl=%{python_include_dir} \
 	--with-perl=%{_bindir}/perl \
 	--with-tcl=%{_bindir}/tclsh
+#	--with-zlib \
+#	--with-pnglib \
+#	--with-tifflib
 %{__make}
 
 %install
@@ -150,6 +156,7 @@ rm -rf $RPM_BUILD_ROOT
 install ./bind/cpp/pdflib.hpp $RPM_BUILD_ROOT%{_includedir}
 
 cp -a pdf-libs/* $RPM_BUILD_ROOT%{_libdir}
+rm -f $RPM_BUILD_ROOT%{_libdir}/libpdf_.la
 
 gzip -9nf readme.txt doc/*.txt
 
