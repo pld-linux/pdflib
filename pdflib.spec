@@ -3,26 +3,26 @@
 %include	/usr/lib/rpm/macros.python
 
 Summary:	Portable C library for dynamically generating PDF files
-Summary(pl):	Przeno¶na biblioteka C do dynamicznej generacji plików PDF
+Summary(pl):	Przeno¶na biblioteka C do dynamicznego generowania plików PDF
 Name:		pdflib
-Version:	4.0.2
-Release:	3
+Version:	4.0.3
+Release:	1
 License:	Alladin Free Public License
 Group:		Libraries
 Source0:	http://www.pdflib.com/pdflib/download/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-shared-libs.patch
+URL:		http://www.pdflib.com/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	libtiff-devel
-BuildRequires:	libtool
+BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	perl-devel >= 5.6.1
 BuildRequires:	python-devel >= 2.2
 BuildRequires:	python-modules >= 2.2
 BuildRequires:	tcl-devel
 BuildRequires:	zlib-devel
-URL:		http://www.pdflib.com/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -113,11 +113,7 @@ Statyczna biblioteka pdflib.
 %{__libtoolize}
 aclocal --output=config/aclocal.m4
 %{__autoconf}
-if [ -f %{_pkgconfigdir}/libpng12.pc ] ; then
-	CPPFLAGS="`pkg-config libpng12 --cflags`"
-fi
-
-%configure CPPFLAGS="$CPPFLAGS" \
+%configure \
 	--enable-cxx \
 	--enable-shared-pdflib \
 	--with-py=%{py_sitedir} --with-pyincl=%{py_incdir} \
@@ -132,14 +128,6 @@ fi
 %install
 rm -rf $RPM_BUILD_ROOT
 
-# arrrghh!!! libtool 1.4 supports linking with non-installed library,
-# but without DESTDIR! use hack to avoid "relinking" (which requires
-# libpdf already installed in /usr/lib).
-for f in bind/{perl/pdflib_pl,python/pdflib_py,tcl/pdflib_tcl}.la ; do
-	sed -e '/^relink_command=/d' $f > $f.new
-	mv -f $f.new $f
-done
-
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
 install ./bind/cpp/pdflib.hpp $RPM_BUILD_ROOT%{_includedir}
@@ -152,11 +140,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%doc readme.txt doc/{changes,compatibility,readme_unix}.txt
+%doc doc/aladdin-license.pdf
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
 
 %files devel
 %defattr(644,root,root,755)
-%doc readme.txt doc/{readme_unix,compatibility}.txt
+%doc doc/PDFlib-manual.pdf
+%attr(755,root,root) %{_bindir}/pdflib-config
 %attr(755,root,root) %{_libdir}/lib*.so
 %attr(755,root,root) %{_libdir}/lib*.la
 %{_includedir}/pdflib.h

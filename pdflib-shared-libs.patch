@@ -49,14 +49,22 @@ diff -urN pdflib-4.0.0.org/configure.in pdflib-4.0.0/configure.in
  # --------------------------------------------------------------------
  # 	PDFlib C++ language binding
  # --------------------------------------------------------------------
+@@ -899,7 +899,6 @@
+ fi
+ 
+ DEFINES="$CFLAGS $DEFINES $INCLUDES $PLATFORM"
+-EXTERNALLIBS="$LDFLAGS $EXTERNALLIBS"
+ 
+ AC_SUBST(BINDINGS)
+ AC_SUBST(WITH_PDI)
 @@ -881,8 +867,8 @@
  
  fi
  
--PDFLIBCONVENIENT="\$(top_builddir)/pdflib/libpdf_.la $INTERNALLIBS"
+-PDFLIBCONVENIENT="\$(top_builddir)/pdflib/libpdf_.la $INTERNALLIBS $EXTERNALLIBS"
 -PDFLIBLINKSELF="$RPATH $PDFLIBCONVENIENT"
-+PDFLIBCONVENIENT="\$(top_builddir)/pdflib/libpdf.la $INTERNALLIBS"
-+PDFLIBLINKSELF="$RPATH \$(top_builddir)/pdflib/libpdf_.la -ltiff -lpng -lz"
++PDFLIBCONVENIENT="\$(top_builddir)/pdflib/libpdf.la $INTERNALLIBS $EXTERNALLIBS"
++PDFLIBLINKSELF="$RPATH \$(top_builddir)/pdflib/libpdf_.la"
  PDFLIBLINK="\$(top_builddir)/pdflib/libpdf.la $EXTERNALLIBS"
  
  AC_SUBST(EXTERNALLIBS)
