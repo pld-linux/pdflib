@@ -46,7 +46,7 @@ install -d $RPM_BUILD_ROOT%{_prefix}/{include,lib/perl5/site_perl/i386-linux} \
 cd pdflib
 install -c pdflib.h $RPM_BUILD_ROOT%{_includedir}
 install -c libpdf2.01.so $RPM_BUILD_ROOT%{_libdir}
-make libpdf2.01.a
+%{__make} libpdf2.01.a
 install -c libpdf2.01.a $RPM_BUILD_ROOT%{_libdir}
 ln -s libpdf2.01.so $RPM_BUILD_ROOT%{_libdir}/libpdf.so
 cd ../bind/perl
