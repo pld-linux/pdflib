@@ -149,7 +149,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc doc/PDFlib-manual.pdf
 %attr(755,root,root) %{_bindir}/pdflib-config
 %attr(755,root,root) %{_libdir}/lib*.so
-%attr(755,root,root) %{_libdir}/lib*.la
+%{_libdir}/lib*.la
 %{_includedir}/pdflib.h
 %{_includedir}/pdflib.hpp
 
