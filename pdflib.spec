@@ -1,6 +1,5 @@
 
 %include	/usr/lib/rpm/macros.perl
-%include	/usr/lib/rpm/macros.python
 
 Summary:	Portable C library for dynamically generating PDF files
 Summary(pl):	Przeno¶na biblioteka C do dynamicznego generowania plików PDF
