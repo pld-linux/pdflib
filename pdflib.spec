@@ -6,7 +6,7 @@ License:	GPL
 Group:		Libraries
 Source:		http://www.ifconnection.de/~tm/pdflib/pdflib-2.01.tar.gz
 Patch:		pdflib-soname.patch
-BuildRoot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 PDFlib is a C library for generating PDF files. It offers a graphics API
