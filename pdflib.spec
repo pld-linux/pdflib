@@ -4,15 +4,18 @@
 %define python_include_dir %(echo `python -c "import sys; print (sys.prefix + '/include/python' + sys.version[:3])"`)
 
 Summary:	Portable C library for dynamically generating PDF files
+Summary(pl):	Przenaszalnia biblioteka C do dynamicznej generacji plików PDF
 Name:		pdflib
-Version:	3.03
-Release:	3
+Version:	4.0.0
+Release:	1
 License:	GPL
 Group:		Libraries
+Group(de):	Libraries
+Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
 Source0:	http://www.pdflib.com/pdflib/download/%{name}-%{version}.tar.gz
-Patch0:		pdflib-DESTDIR.patch
+Patch0:		%{name}-DESTDIR.patch
 BuildRequires:	python-devel
 BuildRequires:	perl-devel >= 5.6.1
 BuildRequires:	tcl-devel
@@ -20,6 +23,8 @@ BuildRequires:	zlib-devel
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
+BuildRequires:	autoconf
+URL:		http://www.pdflib.com/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -30,49 +35,84 @@ files! For detailed instructions on PDFlib programming and the
 associated API, see the PDFlib Programming Manual, included in PDF
 format in the PDFlib distribution.
 
+%description -l pl
+PDFlib to biblioteka w C do generowania plików PDF. Oferuje ona API do
+obs³ugi grafiki ze wsparciem dla rysowania, tekstów, fontów, obrazków
+oraz hipertekstu.
+
 %package devel
 Summary:	Header file for pdflib
+Summary(pl):	Pliki nag³ówkowe dla %{name}
 Group:		Development/Libraries
+Group(de):	Entwicklung/Libraries
+Group(fr):	Development/Librairies
+Group(pl):	Programowanie/Biblioteki
 Requires:	%{name} = %{version}
 
 %description devel
 This package contains the files needed for compiling programs using
 the PDF library.
 
+%description -l pl devel
+Pakiet zawiera pliki potrzebne do kompilacji programów u¿ywaj±cych
+biblioteki PDF.
+
 %package perl
 Summary:	Perl bindings for pdflib
+Summary(pl):	Dowi±zania Perla do pdflib
 Group:		Development/Languages/Perl
+Group(de):	Entwicklung/Sprachen/Perl
 Group(pl):	Programowanie/Jêzyki/Perl
 Requires:	%{name} = %{version}
 
 %description perl
 Perl bindings for pdflib.
 
+%description -l pl perl
+Dowi±zania Perla do pdflib.
+
 %package tcl
 Summary:	Tcl bindings for pdflib
+Summary(pl):	Dowi±zania Tcl do pdflib
 Group:		Development/Languages/Tcl
+Group(de):	Entwicklung/Sprachen/Tcl
 Group(pl):	Programowanie/Jêzyki/Tcl
 Requires:	%{name} = %{version}
 
 %description tcl
 Tcl bindings for pdflib.
 
+%description -l pl tcl
+Dowi±zania TCL dla pdflib.
+
 %package python
 Summary:	Python bindings for pdflib
+Summary(pl):	Dowi±zania pythona dla pdflib
 Group:		Development/Languages/Python
+Group(de):	Entwicklung/Sprachen/Python
 Group(pl):	Programowanie/Jêzyki/Python
 Requires:	%{name} = %{version}
 
 %description python
 Python bindings for pdflib.
 
+%description -l pl python
+Dowi±zania pythona dla pdflib.
+
 %package static
 Summary:	Static libraries for pdflib
+Summary(pl):	Statyczna biblioteka pdflib
 Group:		Development/Libraries
+Group(de):	Entwicklung/Libraries
+Group(fr):	Development/Librairies
+Group(pl):	Programowanie/Biblioteki
 Requires:	%{name}-devel = %{version}
 
 %description static
 Static libraries for pdflib.
+
+%description -l pl static
+Statyczna biblioteka pdflib.
 
 %prep
 %setup -q
@@ -80,6 +120,7 @@ Static libraries for pdflib.
 
 %build
 libtoolize --copy --force
+aclocal --output=config/aclocal.m4
 autoconf
 # build as shared library - bindings are not build
 %configure \
@@ -91,14 +132,14 @@ install -d pdf-libs
 cp -a pdflib/.libs/* pdf-libs
 rm pdf-libs/libpdf.la
 sed  -e 's/^installed=.*/installed=yes/' pdflib/libpdf.la >pdf-libs/libpdf.la
-make distclean
+%{__make} distclean
 
 # build as static library - bindings are build
 %configure \
 	--enable-cxx \
 	--with-py=%{python_dir} --with-pyincl=%{python_include_dir} \
-	--with-perl=/usr/bin/perl \
-	--with-tcl=/usr/bin/tclsh
+	--with-perl=%{_bindir}/perl \
+	--with-tcl=%{_bindir}/tclsh
 %{__make}
 
 %install
