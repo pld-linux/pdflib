@@ -6,7 +6,7 @@ Summary:	Portable C library for dynamically generating PDF files
 Summary(pl):	Przeno¶na biblioteka C do dynamicznego generowania plików PDF
 Name:		pdflib
 Version:	4.0.3
-Release:	7
+Release:	8
 License:	Aladdin Free Public License
 Group:		Libraries
 Source0:	http://www.pdflib.com/pdflib/download/%{name}-%{version}.tar.gz
@@ -14,6 +14,7 @@ Source0:	http://www.pdflib.com/pdflib/download/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-shared-libs.patch
 Patch2:		%{name}-perl_paths.patch
+Patch3:		%{name}-pdflib_pl_pm_VERSION.patch
 URL:		http://www.pdflib.com/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -116,6 +117,7 @@ Statyczna biblioteka pdflib.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p0
+%patch3 -p1
 
 %build
 %{__libtoolize}
