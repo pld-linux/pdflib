@@ -212,7 +212,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files python
 %defattr(644,root,root,755)
-%attr(755,root,root) %{py_sitedir}/lib-dynload/pdflib_py.so.*
+%attr(755,root,root) %{py_libdir}/lib-dynload/pdflib_py.so.*
 
 %files static
 %defattr(644,root,root,755)
