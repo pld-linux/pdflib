@@ -48,7 +48,7 @@ Requires:	%{name} = %{version}
 This package contains the files needed for compiling programs using
 the PDF library.
 
-%description -l pl devel
+%description devel -l pl
 Pakiet zawiera pliki potrzebne do kompilacji programów u¿ywaj±cych
 biblioteki PDF.
 
@@ -62,7 +62,7 @@ Obsoletes:	%{name}-perl5
 %description perl
 Perl bindings for pdflib.
 
-%description -l pl perl
+%description perl -l pl
 Dowi±zania Perla do pdflib.
 
 %package tcl
@@ -75,7 +75,7 @@ Obsoletes:	%{name}-tcl8.0
 %description tcl
 Tcl bindings for pdflib.
 
-%description -l pl tcl
+%description tcl -l pl
 Dowi±zania TCL dla pdflib.
 
 %package python
@@ -89,7 +89,7 @@ Obsoletes:	%{name}-python1.5
 %description python
 Python bindings for pdflib.
 
-%description -l pl python
+%description python -l pl
 Dowi±zania pythona dla pdflib.
 
 %package static
@@ -101,7 +101,7 @@ Requires:	%{name}-devel = %{version}
 %description static
 Static libraries for pdflib.
 
-%description -l pl static
+%description static -l pl
 Statyczna biblioteka pdflib.
 
 %prep
@@ -124,7 +124,7 @@ autoconf
 	--with-pnglib \
 	--with-tifflib
 %{__make}
- 
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
