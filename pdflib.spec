@@ -6,7 +6,7 @@
 Summary:	Portable C library for dynamically generating PDF files
 Name:		pdflib
 Version:	3.03
-Release:	2
+Release:	3
 License:	GPL
 Group:		Libraries
 Group(fr):	Librairies
@@ -14,7 +14,7 @@ Group(pl):	Biblioteki
 Source0:	http://www.pdflib.com/pdflib/download/%{name}-%{version}.tar.gz
 Patch0:		pdflib-DESTDIR.patch
 BuildRequires:	python-devel
-BuildRequires:	perl
+BuildRequires:	perl-devel
 BuildRequires:	tcl-devel
 BuildRequires:	zlib-devel
 BuildRequires:	libpng-devel >= 1.0.8
@@ -78,6 +78,7 @@ Static libraries for pdflib.
 %patch -p1
 
 %build
+libtoolize --copy --force
 autoconf
 # build as shared library - bindings are not build
 %configure \
@@ -88,13 +89,15 @@ autoconf
 install -d pdf-libs
 cp -a pdflib/.libs/* pdf-libs
 rm pdf-libs/libpdf.la
-cp pdflib/libpdf.la pdf-libs
+sed  -e 's/^installed=.*/installed=yes/' pdflib/libpdf.la >pdf-libs/libpdf.la
 make distclean
 
 # build as static library - bindings are build
 %configure \
 	--enable-cxx \
-	--with-py=%{python_dir} --with-pyincl=%{python_include_dir}
+	--with-py=%{python_dir} --with-pyincl=%{python_include_dir} \
+	--with-perl=/usr/bin/perl \
+	--with-tcl=/usr/bin/tclsh
 %{__make}
 
 %install
