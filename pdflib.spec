@@ -1,28 +1,32 @@
-Summary:	Portable C library for dynamically generating PDF files.
+Summary:	Portable C library for dynamically generating PDF files
 Name:		pdflib
 Version:	2.01
 Release:	1
 License:	GPL
 Group:		Libraries
-Source:		http://www.ifconnection.de/~tm/pdflib/pdflib-2.01.tar.gz
-Patch:		pdflib-soname.patch
+Group(fr):	Librairies
+Group(pl):	Biblioteki
+Source0:	http://www.ifconnection.de/~tm/pdflib/%{name}-%{version}.tar.gz
+Patch0:		pdflib-soname.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-PDFlib is a C library for generating PDF files. It offers a graphics API
-with support for drawing, text, fonts, images, and hypertext. Call PDFlib
-routines from within your client program and voila: dynamic PDF files! For
-detailed instructions on PDFlib programming and the associated API, see the
-PDFlib Programming Manual, included in PDF format in the PDFlib
-distribution.
+PDFlib is a C library for generating PDF files. It offers a graphics
+API with support for drawing, text, fonts, images, and hypertext. Call
+PDFlib routines from within your client program and voila: dynamic PDF
+files! For detailed instructions on PDFlib programming and the
+associated API, see the PDFlib Programming Manual, included in PDF
+format in the PDFlib distribution.
 
 %package devel
 Summary:	Header file for pdflib
 Group:		Libraries
+Group(fr):	Librairies
+Group(pl):	Biblioteki
 
 %description devel
-This package contains the files needed for compiling programs using the PDF 
-library.   
+This package contains the files needed for compiling programs using
+the PDF library.
 
 %prep
 %setup -q
@@ -36,22 +40,23 @@ make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/usr/{include,lib/perl5/site_perl/i386-linux}
-install -d $RPM_BUILD_ROOT/usr/lib/{python,tcl8.0/pdflib}
+install -d $RPM_BUILD_ROOT%{_prefix}/{include,lib/perl5/site_perl/i386-linux} \
+	$RPM_BUILD_ROOT%{_libdir}/{python,tcl8.0/pdflib}
+
 cd pdflib
-/usr/bin/install -c pdflib.h $RPM_BUILD_ROOT/usr/include
-/usr/bin/install -c libpdf2.01.so $RPM_BUILD_ROOT/usr/lib
+install -c pdflib.h $RPM_BUILD_ROOT%{_includedir}
+install -c libpdf2.01.so $RPM_BUILD_ROOT%{_libdir}
 make libpdf2.01.a
-/usr/bin/install -c libpdf2.01.a $RPM_BUILD_ROOT/usr/lib
-ln -s libpdf2.01.so $RPM_BUILD_ROOT/usr/lib/libpdf.so
+install -c libpdf2.01.a $RPM_BUILD_ROOT%{_libdir}
+ln -s libpdf2.01.so $RPM_BUILD_ROOT%{_libdir}/libpdf.so
 cd ../bind/perl
-/usr/bin/install -c pdflib.so $RPM_BUILD_ROOT/usr/lib/perl5/site_perl/i386-linux
-/usr/bin/install -c pdflib.pm $RPM_BUILD_ROOT/usr/lib/perl5/site_perl/i386-linux
+install -c pdflib.so $RPM_BUILD_ROOT%{_libdir}/perl5/site_perl/i386-linux
+install -c pdflib.pm $RPM_BUILD_ROOT%{_libdir}/perl5/site_perl/i386-linux
 cd ../python
-/usr/bin/install -c pdflib.so $RPM_BUILD_ROOT/usr/lib/python
+install -c pdflib.so $RPM_BUILD_ROOT%{_libdir}/python
 cd ../tcl
-/usr/bin/install -c pdflib.so $RPM_BUILD_ROOT/usr/lib/tcl8.0/pdflib
-/usr/bin/install -c pkgIndex.tcl $RPM_BUILD_ROOT/usr/lib/tcl8.0/pdflib
+install -c pdflib.so $RPM_BUILD_ROOT%{_libdir}/tcl8.0/pdflib
+install -c pkgIndex.tcl $RPM_BUILD_ROOT%{_libdir}/tcl8.0/pdflib
 cd ../..
 
 %clean
@@ -61,14 +66,16 @@ rm -rf $RPM_BUILD_ROOT
 %postun -p /sbin/ldconfig
 
 %files
+%defattr(644,root,root,755)
 %doc readme.txt doc/*
-/usr/lib/libpdf2.01.so
-/usr/lib/libpdf.so
-/usr/lib/perl5/site_perl/i386-linux/pdflib.so
-/usr/lib/perl5/site_perl/i386-linux/pdflib.pm
-/usr/lib/python/pdflib.so
-/usr/lib/tcl8.0/pdflib
+%{_libdir}/libpdf2.01.so
+%{_libdir}/libpdf.so
+%{_libdir}/perl5/site_perl/i386-linux/pdflib.so
+%{_libdir}/perl5/site_perl/i386-linux/pdflib.pm
+%{_libdir}/python/pdflib.so
+%{_libdir}/tcl8.0/pdflib
 
 %files devel
-/usr/include/pdflib.h
-/usr/lib/libpdf2.01.a
+%defattr(644,root,root,755)
+%{_includedir}/pdflib.h
+%{_libdir}/libpdf2.01.a
