@@ -15,7 +15,7 @@ Release:	8
 License:	Aladdin Free Public License
 Group:		Libraries
 Source0:	http://www.pdflib.com/pdflib/download/%{name}-%{version}.tar.gz
-# Source0-md5: 1b9e0d16f3e695902301aa26b6e92513
+# Source0-md5:	1b9e0d16f3e695902301aa26b6e92513
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-shared-libs.patch
 Patch2:		%{name}-perl_paths.patch
