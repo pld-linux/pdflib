@@ -17,7 +17,7 @@ Group(pl):	Biblioteki
 Source0:	http://www.pdflib.com/pdflib/download/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-shared-libs.patch
-BuildRequires:	python-devel
+BuildRequires:	python-devel >= 2.1
 BuildRequires:	perl-devel >= 5.6.1
 BuildRequires:	tcl-devel
 BuildRequires:	zlib-devel
