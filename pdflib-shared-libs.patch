@@ -1,6 +1,13 @@
---- pdflib-4.0.0.orig/configure.in	Wed Apr 18 17:51:38 2001
-+++ pdflib-4.0.0/configure.in	Sat May 12 00:38:37 2001
-@@ -588,7 +588,6 @@
+diff -urN pdflib-4.0.0.org/configure.in pdflib-4.0.0/configure.in
+--- pdflib-4.0.0.org/configure.in	Sat May 12 11:19:53 2001
++++ pdflib-4.0.0/configure.in	Sat May 12 11:20:48 2001
+@@ -583,12 +583,11 @@
+ [  --with-tifflib          use installed tifflib instead of internal (not rec.)],
+ [
+     AC_CHECK_LIB(tiff, TIFFOpen, [EXTERNALLIBS="$EXTERNALLIBS -ltiff"],
+-	AC_MSG_ERROR([No usable tifflib library found.]))
++	AC_MSG_ERROR([No usable tifflib library found.]),[$EXTERNALLIBS])
+ 
      AC_CHECK_HEADER(tiff.h, , 
  	AC_MSG_ERROR([No usable tifflib include file found.]))
  
