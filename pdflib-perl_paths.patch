@@ -1,0 +1,26 @@
+--- configure.in~	Sat Mar 15 13:42:32 2003
++++ configure.in	Sat Mar 15 13:54:31 2003
+@@ -333,7 +333,7 @@
+ 	if test "$PERL5DIR" != ""; then
+ 	    if test "$PERLINCLUDE" = "nope"; then
+ 		if test -r "$PERL5DIR/perl.h"; then
+-		    AC_MSG_RESULT(PERL5DIR/perl.h)
++		    AC_MSG_RESULT($PERL5DIR/perl.h)
+ 		    WITH_PERL=yes
+ 		    PERLINCLUDE="$PERL5DIR"
+ 		elif test -r "$PERL5DIR/CORE/perl.h"; then
+@@ -354,12 +354,12 @@
+ 	    WITH_PERL=no
+ 	fi
+ 
+-	PERLLIBDIR=`($PERL -e 'use Config; print $Config{sitearchexp};') 2>/dev/null`
++	PERLLIBDIR=`($PERL -e 'use Config; print $Config{vendorarchexp};') 2>/dev/null`
+ 	if test -z "$PERLLIBDIR" -o ! -d "$PERLLIBDIR"; then
+ 	    AC_MSG_RESULT(         unable to determine perl shared library directory)
+ 	fi
+ 
+-	PERLMODDIR=`($PERL -e 'use Config; print $Config{sitelib};') 2>/dev/null`
++	PERLMODDIR=`($PERL -e 'use Config; print $Config{vendorlib};') 2>/dev/null`
+ 	if test -z "$PERLMODDIR" -o ! -d "$PERLMODDIR"; then
+ 	    AC_MSG_RESULT(         unable to determine perl module directory)
+ 	    PERLMODDIR="/usr/local/lib/perl5/site_perl/5.6.0"
