@@ -1,13 +1,12 @@
+
 %include	/usr/lib/rpm/macros.perl
 %include	/usr/lib/rpm/macros.python
-
-%define python_include_dir %(echo `python -c "import sys; print (sys.prefix + '/include/python' + sys.version[:3])"`)
 
 Summary:	Portable C library for dynamically generating PDF files
 Summary(pl):	Przeno¶na biblioteka C do dynamicznej generacji plików PDF
 Name:		pdflib
 Version:	4.0.1
-Release:	3
+Release:	4
 License:	Alladin Free Public License
 Group:		Libraries
 Group(de):	Bibliotheken
@@ -28,6 +27,7 @@ BuildRequires:	libtiff-devel
 BuildRequires:	libtool
 BuildRequires:	perl-devel >= 5.6.1
 BuildRequires:	python-devel >= 2.2
+BuildRequires:	python-modules >= 2.2
 BuildRequires:	tcl-devel
 BuildRequires:	zlib-devel
 URL:		http://www.pdflib.com/
@@ -156,7 +156,7 @@ autoconf
 %configure \
 	--enable-cxx \
 	--enable-shared-pdflib \
-	--with-py=%{py_sitedir} --with-pyincl=%{python_include_dir} \
+	--with-py=%{py_sitedir} --with-pyincl=%{py_incdir} \
 	--with-perl=%{_bindir}/perl \
 	--with-tcl=%{_bindir}/tclsh \
 	--with-zlib \
@@ -203,7 +203,7 @@ rm -rf $RPM_BUILD_ROOT
 %files perl
 %defattr(644,root,root,755)
 %{perl_sitearch}/pdflib_pl.pm
-%attr(755,root,root) %{py_libdir}/pdflib_pl.so*
+%attr(755,root,root) %{perl_sitearch}/pdflib_pl.so*
 
 %files tcl
 %defattr(644,root,root,755)
