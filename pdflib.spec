@@ -1,34 +1,34 @@
 %include        /usr/lib/rpm/macros.perl
 
-%define python_dir %(echo `python -c "import sys; print (sys.prefix + '/lib/python' + sys.version[:3])"`)
 %define python_include_dir %(echo `python -c "import sys; print (sys.prefix + '/include/python' + sys.version[:3])"`)
 
 Summary:	Portable C library for dynamically generating PDF files
 Summary(pl):	Przeno∂na biblioteka C do dynamicznej generacji plikÛw PDF
 Name:		pdflib
 Version:	4.0.1
-Release:	2
+Release:	3
 License:	Alladin Free Public License
 Group:		Libraries
-Group(de):	Libraries
+Group(de):	Bibliotheken
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
+Group(pt):	Bibliotecas
 Group(pt_BR):	Bibliotecas
 Group(ru):	‚…¬Ã…œ‘≈À…
 Group(uk):	‚¶¬Ã¶œ‘≈À…
 Source0:	http://www.pdflib.com/pdflib/download/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-shared-libs.patch
-BuildRequires:	python-devel >= 2.1
-BuildRequires:	perl-devel >= 5.6.1
-BuildRequires:	tcl-devel
-BuildRequires:	zlib-devel
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
-BuildRequires:	autoconf
-BuildRequires:	automake
+BuildRequires:	perl-devel >= 5.6.1
+BuildRequires:	python-devel >= 2.2
+BuildRequires:	tcl-devel
+BuildRequires:	zlib-devel
 URL:		http://www.pdflib.com/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -49,11 +49,12 @@ oraz hipertekstu.
 Summary:	Header file for pdflib
 Summary(pl):	Pliki nag≥Ûwkowe dla %{name}
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
+Group(de):	Entwicklung/Bibliotheken
 Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
 Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(pt):	Desenvolvimento/Bibliotecas
 Group(ru):	Ú¡⁄“¡¬œ‘À¡/‚…¬Ã…œ‘≈À…
 Group(uk):	Úœ⁄“œ¬À¡/‚¶¬Ã¶œ‘≈À…
 Requires:	%{name} = %{version}
@@ -71,7 +72,10 @@ Summary:	Perl bindings for pdflib
 Summary(pl):	Dowi±zania Perla do pdflib
 Group:		Development/Languages/Perl
 Group(de):	Entwicklung/Sprachen/Perl
+Group(es):	Desarrollo/Lenguages/Perl
+Group(fr):	Development/Langues/Perl
 Group(pl):	Programowanie/JÍzyki/Perl
+Group(pt):	Desenvolvimento/LÌnguas/Perl
 Requires:	%{name} = %{version}
 Obsoletes:	%{name}-perl5
 
@@ -86,7 +90,10 @@ Summary:	Tcl bindings for pdflib
 Summary(pl):	Dowi±zania Tcl do pdflib
 Group:		Development/Languages/Tcl
 Group(de):	Entwicklung/Sprachen/Tcl
+Group(es):	Desarrollo/Lenguages/Tcl
+Group(fr):	Development/Langues/Tcl
 Group(pl):	Programowanie/JÍzyki/Tcl
+Group(pt):	Desenvolvimento/LÌnguas/Tcl
 Requires:	%{name} = %{version}
 Obsoletes:	%{name}-tcl8.0
 
@@ -101,8 +108,12 @@ Summary:	Python bindings for pdflib
 Summary(pl):	Dowi±zania pythona dla pdflib
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
+Group(es):	Desarrollo/Lenguages/Python
+Group(fr):	Development/Langues/Python
 Group(pl):	Programowanie/JÍzyki/Python
+Group(pt):	Desenvolvimento/LÌnguas/Python
 Requires:	%{name} = %{version}
+%requires_eq	python
 Obsoletes:	%{name}-python1.5
 
 %description python
@@ -115,11 +126,12 @@ Dowi±zania pythona dla pdflib.
 Summary:	Static libraries for pdflib
 Summary(pl):	Statyczna biblioteka pdflib
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
+Group(de):	Entwicklung/Bibliotheken
 Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
 Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(pt):	Desenvolvimento/Bibliotecas
 Group(ru):	Ú¡⁄“¡¬œ‘À¡/‚…¬Ã…œ‘≈À…
 Group(uk):	Úœ⁄“œ¬À¡/‚¶¬Ã¶œ‘≈À…
 Requires:	%{name}-devel = %{version}
@@ -143,7 +155,7 @@ autoconf
 %configure \
 	--enable-cxx \
 	--enable-shared-pdflib \
-	--with-py=%{python_dir} --with-pyincl=%{python_include_dir} \
+	--with-py=%{py_sitedir} --with-pyincl=%{python_include_dir} \
 	--with-perl=%{_bindir}/perl \
 	--with-tcl=%{_bindir}/tclsh \
 	--with-zlib \
@@ -199,11 +211,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files python
 %defattr(644,root,root,755)
-%attr(755,root,root) %{python_dir}/lib-dynload/pdflib_py.so.*
+%attr(755,root,root) %{py_sitedir}/lib-dynload/pdflib_py.so.*
 
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libpdf.a
 %{perl_sitearch}/pdflib_pl.a
 %{_libdir}/tcl*/pdflib/pdflib_tcl.a
-%{python_dir}/lib-dynload/pdflib_py.a
+%{py_sitedir}/lib-dynload/pdflib_py.a
