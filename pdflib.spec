@@ -1,5 +1,5 @@
-%include        /usr/lib/rpm/macros.perl
-%include        /usr/lib/rpm/macros.python
+%include	/usr/lib/rpm/macros.perl
+%include	/usr/lib/rpm/macros.python
 
 %define python_include_dir %(echo `python -c "import sys; print (sys.prefix + '/include/python' + sys.version[:3])"`)
 
@@ -203,7 +203,7 @@ rm -rf $RPM_BUILD_ROOT
 %files perl
 %defattr(644,root,root,755)
 %{perl_sitearch}/pdflib_pl.pm
-%attr(755,root,root) %{perl_sitearch}/pdflib_pl.so*
+%attr(755,root,root) %{py_libdir}/pdflib_pl.so*
 
 %files tcl
 %defattr(644,root,root,755)
@@ -219,4 +219,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libpdf.a
 %{perl_sitearch}/pdflib_pl.a
 %{_libdir}/tcl*/pdflib/pdflib_tcl.a
-%{py_sitedir}/lib-dynload/pdflib_py.a
+%{py_libdir}/lib-dynload/pdflib_py.a
