@@ -1,8 +1,12 @@
 %include        /usr/lib/rpm/macros.perl
+
+%define python_dir %(echo `python -c "import sys; print (sys.prefix + '/lib/python' + sys.version[:3])"`)
+%define python_include_dir %(echo `python -c "import sys; print (sys.prefix + '/include/python' + sys.version[:3])"`)
+
 Summary:	Portable C library for dynamically generating PDF files
 Name:		pdflib
-Version:	3.0
-Release:	3
+Version:	3.02
+Release:	1
 License:	GPL
 Group:		Libraries
 Group(fr):	Librairies
@@ -15,7 +19,6 @@ BuildRequires:	tcl-devel
 BuildRequires:	zlib-devel
 BuildRequires:	libpng >= 1.0.8
 BuildRequires:	libtiff-devel
-BuildRequires:	python-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -77,7 +80,22 @@ Static libraries for pdflib.
 %build
 autoconf
 LDFLAGS="-s"; export LDFLAGS
-%configure
+# build as shared library - bindings are not build
+%configure \
+  --enable-cxx \
+  --enable-shared-pdflib
+%{__make}
+ 
+install -d pdf-libs
+cp -a pdflib/.libs/* pdf-libs
+rm pdf-libs/libpdf.la
+cp pdflib/libpdf.la pdf-libs
+make distclean
+
+# build as static library - bindings are build
+%configure \
+  --enable-cxx \
+  --with-py=%{python_dir} --with-pyincl=%{python_include_dir}
 %{__make}
 
 %install
@@ -85,10 +103,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
+install ./bind/cpp/pdflib.hpp $RPM_BUILD_ROOT%{_includedir}
+
+cp -a pdf-libs/* $RPM_BUILD_ROOT%{_libdir}
+
 strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/lib*.so.*.* \
 	$RPM_BUILD_ROOT%{perl_sitearch}/pdflib_pl.so.*.* \
 	$RPM_BUILD_ROOT%{_libdir}/tcl8.0/pdflib/pdflib_tcl.so.*.* \
-	$RPM_BUILD_ROOT%{_libdir}/python1.5/lib-dynload/pdflib_py.so.*.*
+	$RPM_BUILD_ROOT%{python_dir}/lib-dynload/pdflib_py.so.*.*
 
 gzip -9nf readme.txt doc/*.txt
 
@@ -108,6 +130,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/lib*.so
 %attr(755,root,root) %{_libdir}/lib*.la
 %{_includedir}/pdflib.h
+%{_includedir}/pdflib.hpp
 
 %files perl
 %defattr(644,root,root,755)
@@ -121,11 +144,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files python
 %defattr(644,root,root,755)
-%{_libdir}/python1.5/lib-dynload/pdflib_py.so.*
+%{python_dir}/lib-dynload/pdflib_py.so.*
 
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libpdf.a
 %{perl_sitearch}/pdflib_pl.a
 %{_libdir}/tcl8.0/pdflib/pdflib_tcl.a
-%{_libdir}/python1.5/lib-dynload/pdflib_py.a
+%{python_dir}/lib-dynload/pdflib_py.a
