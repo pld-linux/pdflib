@@ -65,6 +65,7 @@ Group:		Development/Languages/Perl
 Group(de):	Entwicklung/Sprachen/Perl
 Group(pl):	Programowanie/Jêzyki/Perl
 Requires:	%{name} = %{version}
+Obsolete:	%{name}-perl5
 
 %description perl
 Perl bindings for pdflib.
@@ -79,6 +80,7 @@ Group:		Development/Languages/Tcl
 Group(de):	Entwicklung/Sprachen/Tcl
 Group(pl):	Programowanie/Jêzyki/Tcl
 Requires:	%{name} = %{version}
+Obsolete:	%{name}-tcl8.0
 
 %description tcl
 Tcl bindings for pdflib.
@@ -93,6 +95,7 @@ Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
 Group(pl):	Programowanie/Jêzyki/Python
 Requires:	%{name} = %{version}
+Obsolete:	%{name}-python1.5
 
 %description python
 Python bindings for pdflib.
