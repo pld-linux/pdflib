@@ -6,7 +6,7 @@
 Summary:	Portable C library for dynamically generating PDF files
 Name:		pdflib
 Version:	3.03
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries
 Group(fr):	Librairies
