@@ -2,7 +2,7 @@
 Summary:	Portable C library for dynamically generating PDF files
 Name:		pdflib
 Version:	3.0
-Release:	2
+Release: 3
 License:	GPL
 Group:		Libraries
 Group(fr):	Librairies
@@ -13,7 +13,7 @@ BuildRequires:	python-devel
 BuildRequires:	perl
 BuildRequires:	tcl-devel
 BuildRequires:	zlib-devel
-BuildRequires:	libpng-devel
+BuildRequires:	libpng >= 1.0.8
 BuildRequires:	libtiff-devel
 BuildRequires:	python-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
