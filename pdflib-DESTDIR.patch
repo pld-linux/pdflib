@@ -26,37 +26,37 @@ diff -urN pdflib-4.0.0.org/Makefile.in pdflib-4.0.0/Makefile.in
  	$(INSTALL) pdflib-config $(bindir)
  
  pdflib_install:
-diff -urN pdflib-4.0.0.org/bind/java/Makefile.in pdflib-4.0.0/bind/java/Makefile.in
---- pdflib-4.0.0.org/bind/java/Makefile.in	Thu May 10 21:46:34 2001
-+++ pdflib-4.0.0/bind/java/Makefile.in	Thu May 10 22:12:13 2001
-@@ -15,8 +15,8 @@
- CC		= @CC@
- RM      	= @RM@
- LIBTOOL		= ../../libtool --silent
--prefix 		= @prefix@
--exec_prefix 	= @exec_prefix@
-+prefix 		= $(DESTDIR)@prefix@
-+exec_prefix 	= $(DESTDIR)@exec_prefix@
- 
- PDFLIBCONVENIENT= @PDFLIBCONVENIENT@
- 
-@@ -28,7 +28,7 @@
- .c.$(OBJ):
- 	$(LIBTOOL) --mode=compile $(CC) -c $(CPPFLAGS) $(DEFINES) $<
- 
--LANG_LIBDIR 	= @libdir@
-+LANG_LIBDIR 	= $(DESTDIR)@libdir@
- 
- SWIG		= swig1.2 -I../../pdflib -java -stat
- SWIG_LIB	= libpdf_java.la
-@@ -85,6 +85,7 @@
- 	    -dlopen $(SWIG_LIB) java quickreference
+--- flib-4.0.2/bind/java/Makefile.in.orig	Mon Jan 28 13:57:53 2002
++++ flib-4.0.2/bind/java/Makefile.in	Tue Feb 12 11:53:01 2002
+@@ -93,12 +93,13 @@
+ 	    -dlopen $(SWIG_LIB) java quickreference-ibm
  
  install: $(SWIG_LIB) pdflib.jar
 +	$(INSTALL) -d $(LANG_LIBDIR)
  	@-if test -f .libs/libpdf_java.jnilib; then		\
  	    $(LIBTOOL) --mode=install $(INSTALL_DATA)		\
- 		.libs/libpdf_java.jnilib $(LANG_LIBDIR);	\
+-		.libs/libpdf_java.jnilib $(LANG_LIBDIR);	\
++		.libs/libpdf_java.jnilib $(DESTDIR)$(LANG_LIBDIR);	\
+ 	else							\
+ 	    $(LIBTOOL) --mode=install $(INSTALL_DATA)		\
+-		$(SWIG_LIB) $(LANG_LIBDIR);			\
++		$(SWIG_LIB) $(DESTDIR)$(LANG_LIBDIR);			\
+ 	fi
+ 	@echo Copy pdflib.jar and javadoc to an appropriate directory,
+ 	@echo and include pdflib.jar in your CLASSPATH.
+@@ -106,10 +107,10 @@
+ uninstall:
+ 	@-if test -f .libs/libpdf_java.jnilib; then		\
+ 	    $(LIBTOOL) --mode=uninstall $(RM)			\
+-		$(LANG_LIBDIR)/libpdf_java.jnilib;		\
++		$(DESTDIR)$(LANG_LIBDIR)/libpdf_java.jnilib;		\
+ 	else							\
+ 	    $(LIBTOOL) --mode=uninstall $(RM)			\
+-		$(LANG_LIBDIR)/$(SWIG_LIB);			\
++		$(DESTDIR)$(LANG_LIBDIR)/$(SWIG_LIB);			\
+ 	fi
+ 
+ clean:
 diff -urN pdflib-4.0.0.org/bind/perl/Makefile.in pdflib-4.0.0/bind/perl/Makefile.in
 --- pdflib-4.0.0.org/bind/perl/Makefile.in	Thu May 10 21:46:34 2001
 +++ pdflib-4.0.0/bind/perl/Makefile.in	Thu May 10 22:12:13 2001
