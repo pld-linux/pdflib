@@ -48,7 +48,7 @@ oraz hipertekstu.
 Summary:	Header file for pdflib
 Summary(pl):	Pliki nag堯wkowe dla %{name}
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 This package contains the files needed for compiling programs using
@@ -62,7 +62,7 @@ biblioteki PDF.
 Summary:	Perl bindings for pdflib
 Summary(pl):	Dowi您ania Perla do pdflib
 Group:		Development/Languages/Perl
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Obsoletes:	%{name}-perl5
 
 %description perl
@@ -75,7 +75,7 @@ Dowi您ania Perla do pdflib.
 Summary:	Tcl bindings for pdflib
 Summary(pl):	Dowi您ania Tcl do pdflib
 Group:		Development/Languages/Tcl
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Obsoletes:	%{name}-tcl8.0
 
 %description tcl
@@ -88,7 +88,7 @@ Dowi您ania TCL dla pdflib.
 Summary:	Python bindings for pdflib
 Summary(pl):	Dowi您ania pythona dla pdflib
 Group:		Development/Languages/Python
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 %pyrequires_eq	python
 Obsoletes:	%{name}-python1.5
 
@@ -102,7 +102,7 @@ Dowi您ania pythona dla pdflib.
 Summary:	Static libraries for pdflib
 Summary(pl):	Statyczna biblioteka pdflib
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static libraries for pdflib.
