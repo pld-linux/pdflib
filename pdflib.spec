@@ -79,11 +79,10 @@ Static libraries for pdflib.
 
 %build
 autoconf
-LDFLAGS="-s"; export LDFLAGS
 # build as shared library - bindings are not build
 %configure \
-  --enable-cxx \
-  --enable-shared-pdflib
+	--enable-cxx \
+	--enable-shared-pdflib
 %{__make}
  
 install -d pdf-libs
@@ -94,8 +93,8 @@ make distclean
 
 # build as static library - bindings are build
 %configure \
-  --enable-cxx \
-  --with-py=%{python_dir} --with-pyincl=%{python_include_dir}
+	--enable-cxx \
+	--with-py=%{python_dir} --with-pyincl=%{python_include_dir}
 %{__make}
 
 %install
@@ -106,11 +105,6 @@ rm -rf $RPM_BUILD_ROOT
 install ./bind/cpp/pdflib.hpp $RPM_BUILD_ROOT%{_includedir}
 
 cp -a pdf-libs/* $RPM_BUILD_ROOT%{_libdir}
-
-strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/lib*.so.*.* \
-	$RPM_BUILD_ROOT%{perl_sitearch}/pdflib_pl.so.*.* \
-	$RPM_BUILD_ROOT%{_libdir}/tcl8.0/pdflib/pdflib_tcl.so.*.* \
-	$RPM_BUILD_ROOT%{python_dir}/lib-dynload/pdflib_py.so.*.*
 
 gzip -9nf readme.txt doc/*.txt
 
