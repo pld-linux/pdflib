@@ -1,6 +1,12 @@
-
-%include	/usr/lib/rpm/macros.perl
-
+#
+# Conditional build:
+%bcond_with	java
+#
+# TODO:
+#		- java pkg.
+#
+%undefine	with_java
+#
 Summary:	Portable C library for dynamically generating PDF files
 Summary(pl):	Przeno¶na biblioteka C do dynamicznego generowania plików PDF
 Name:		pdflib
@@ -17,6 +23,7 @@ Patch3:		%{name}-pdflib_pl_pm_VERSION.patch
 URL:		http://www.pdflib.com/
 BuildRequires:	autoconf
 BuildRequires:	automake
+%{?with_java:BuildRequires:	jdk >= 1.4}
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool >= 0:1.4.2-9
@@ -124,6 +131,7 @@ Statyczna biblioteka pdflib.
 %configure \
 	--enable-cxx \
 	--enable-shared-pdflib \
+	--with%{!?with_java:out}-java \
 	--with-py=%{py_sitedir} --with-pyincl=%{py_incdir} \
 	--with-perl=%{__perl} \
 	--with-perlincl=%{perl_archlib}/CORE \
@@ -153,21 +161,21 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc readme.txt doc/{changes,compatibility,readme_unix}.txt
 %doc doc/aladdin-license.pdf
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
+%attr(755,root,root) %{_libdir}/libpdf.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
 %doc doc/PDFlib-manual.pdf
 %attr(755,root,root) %{_bindir}/pdflib-config
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_libdir}/lib*.la
+%attr(755,root,root) %{_libdir}/libpdf.so
+%{_libdir}/libpdf.la
 %{_includedir}/pdflib.h
 %{_includedir}/pdflib.hpp
 
 %files perl
 %defattr(644,root,root,755)
 %{perl_vendorarch}/pdflib_pl.pm
-%attr(755,root,root) %{perl_vendorarch}/pdflib_pl.so*
+%attr(755,root,root) %{perl_vendorarch}/pdflib_pl.so.*
 
 %files tcl
 %defattr(644,root,root,755)
