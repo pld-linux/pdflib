@@ -83,7 +83,7 @@ Summary:	Python bindings for pdflib
 Summary(pl):	Dowi±zania pythona dla pdflib
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}
-%requires_eq	python
+%pyrequires_eq	python
 Obsoletes:	%{name}-python1.5
 
 %description python
