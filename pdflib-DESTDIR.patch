@@ -1,93 +1,110 @@
-diff -Nur pdflib-3.02.orig/bind/java/Makefile.in pdflib-3.02/bind/java/Makefile.in
---- pdflib-3.02.orig/bind/java/Makefile.in	Tue Aug 22 03:02:00 2000
-+++ pdflib-3.02/bind/java/Makefile.in	Sat Sep 16 06:16:13 2000
-@@ -16,8 +16,8 @@
+diff -urN pdflib-4.0.0.org/Makefile.in pdflib-4.0.0/Makefile.in
+--- pdflib-4.0.0.org/Makefile.in	Thu May 10 21:46:34 2001
++++ pdflib-4.0.0/Makefile.in	Thu May 10 22:30:44 2001
+@@ -10,11 +10,11 @@
+ srcdir = @srcdir@
+ 
+ # installation directories
+-prefix 		= @prefix@
+-exec_prefix 	= @exec_prefix@
+-libdir 		= @libdir@
+-includedir 	= @includedir@
+-bindir      	= @bindir@
++prefix 		= $(DESTDIR)@prefix@
++exec_prefix 	= $(DESTDIR)@exec_prefix@
++libdir 		= $(DESTDIR)@libdir@
++includedir 	= $(DESTDIR)@includedir@
++bindir      	= $(DESTDIR)@bindir@
+ 
+ # ------------------------- default target  -------------------------------
+ 
+@@ -111,6 +111,7 @@
+ # --------------------------- install ---------------------------------
+ 
+ install: pdflib_install @BINDINGS_INSTALL@
++	$(INSTALL) -d $(bindir)
+ 	$(INSTALL) pdflib-config $(bindir)
+ 
+ pdflib_install:
+diff -urN pdflib-4.0.0.org/bind/java/Makefile.in pdflib-4.0.0/bind/java/Makefile.in
+--- pdflib-4.0.0.org/bind/java/Makefile.in	Thu May 10 21:46:34 2001
++++ pdflib-4.0.0/bind/java/Makefile.in	Thu May 10 22:12:13 2001
+@@ -15,8 +15,8 @@
  CC		= @CC@
  RM      	= @RM@
- LIBTOOL		= ../../libtool
+ LIBTOOL		= ../../libtool --silent
 -prefix 		= @prefix@
 -exec_prefix 	= @exec_prefix@
 +prefix 		= $(DESTDIR)@prefix@
 +exec_prefix 	= $(DESTDIR)@exec_prefix@
  
- PDFLIBLINK	= @PDFLIBLINK@
+ PDFLIBCONVENIENT= @PDFLIBCONVENIENT@
  
-@@ -29,7 +29,7 @@
+@@ -28,7 +28,7 @@
  .c.$(OBJ):
- 	@$(LIBTOOL) --mode=compile $(CC) -c $(CPPFLAGS) $(DEFINES) $<
+ 	$(LIBTOOL) --mode=compile $(CC) -c $(CPPFLAGS) $(DEFINES) $<
  
 -LANG_LIBDIR 	= @libdir@
 +LANG_LIBDIR 	= $(DESTDIR)@libdir@
  
  SWIG		= swig1.2 -I../../pdflib -java -stat
  SWIG_LIB	= libpdf_java.la
-@@ -81,6 +81,7 @@
- 	    -dlopen $(SWIG_LIB) java pdfclock
+@@ -85,6 +85,7 @@
+ 	    -dlopen $(SWIG_LIB) java quickreference
  
  install: $(SWIG_LIB) pdflib.jar
-+	install -d $(LANG_LIBDIR)
- 	$(LIBTOOL) --mode=install $(INSTALL_DATA) $(SWIG_LIB) $(LANG_LIBDIR)
- 	@echo Copy pdflib.jar and javadoc to an appropriate directory
- 	@echo and include the pdflib.jar file name in your CLASSPATH.
-diff -Nur pdflib-3.02.orig/bind/perl/Makefile.in pdflib-3.02/bind/perl/Makefile.in
---- pdflib-3.02.orig/bind/perl/Makefile.in	Tue Aug 22 03:02:00 2000
-+++ pdflib-3.02/bind/perl/Makefile.in	Sat Sep 16 06:16:38 2000
-@@ -27,8 +27,8 @@
++	$(INSTALL) -d $(LANG_LIBDIR)
+ 	@-if test -f .libs/libpdf_java.jnilib; then		\
+ 	    $(LIBTOOL) --mode=install $(INSTALL_DATA)		\
+ 		.libs/libpdf_java.jnilib $(LANG_LIBDIR);	\
+diff -urN pdflib-4.0.0.org/bind/perl/Makefile.in pdflib-4.0.0/bind/perl/Makefile.in
+--- pdflib-4.0.0.org/bind/perl/Makefile.in	Thu May 10 21:46:34 2001
++++ pdflib-4.0.0/bind/perl/Makefile.in	Thu May 10 22:12:13 2001
+@@ -26,8 +26,8 @@
  .c.$(OBJ):
- 	@$(LIBTOOL) --mode=compile $(CC) -c $(CPPFLAGS) $(DEFINES) $<
+ 	$(LIBTOOL) --mode=compile $(CC) -c $(CPPFLAGS) $(DEFINES) $<
  
 -LANG_LIBDIR 	= @PERLLIBDIR@
 -PERLMODDIR	= @PERLMODDIR@
 +LANG_LIBDIR 	= $(DESTDIR)@PERLLIBDIR@
 +PERLMODDIR	= $(DESTDIR)@PERLMODDIR@
- PERLBIN		= @PERL@
+ PERLBIN		= @PERL@ -I. -I.libs
  
  SWIG		= swig1.2 -I../../pdflib -perl5 -shadow -stat
-@@ -63,6 +63,7 @@
- 	-$(LIBTOOL) --mode=execute -dlopen $(SWIG_LIB) $(PERLBIN) pdfclock.pl
+@@ -60,6 +60,7 @@
+ 	-$(PERLBIN) quickreference.pl
  
  install: $(SWIG_LIB)
-+	install -d $(LANG_LIBDIR)
++	$(INSTALL) -d $(LANG_LIBDIR)
  	$(LIBTOOL) --mode=install \
  		$(INSTALL_DATA) $(SWIG_LIB) $(LANG_LIBDIR)
  	$(INSTALL_DATA) pdflib_pl.pm $(LANG_LIBDIR)
-diff -Nur pdflib-3.02.orig/bind/python/Makefile.in pdflib-3.02/bind/python/Makefile.in
---- pdflib-3.02.orig/bind/python/Makefile.in	Tue Aug 22 03:02:00 2000
-+++ pdflib-3.02/bind/python/Makefile.in	Sat Sep 16 06:17:05 2000
-@@ -19,8 +19,8 @@
- 
- PDFLIBLINK	= @PDFLIBLINK@
- 
--prefix 		= @prefix@
--exec_prefix 	= @exec_prefix@
-+prefix 		= $(DESTDIR)@prefix@
-+exec_prefix 	= $(DESTDIR)@exec_prefix@
- 
- .SUFFIXES: .c .$(OBJ) .lo
- 
-@@ -30,7 +30,7 @@
+diff -urN pdflib-4.0.0.org/bind/python/Makefile.in pdflib-4.0.0/bind/python/Makefile.in
+--- pdflib-4.0.0.org/bind/python/Makefile.in	Thu May 10 21:46:35 2001
++++ pdflib-4.0.0/bind/python/Makefile.in	Thu May 10 22:12:13 2001
+@@ -26,7 +26,7 @@
  .c.$(OBJ):
- 	@$(LIBTOOL) --mode=compile $(CC) -c $(CPPFLAGS) $(DEFINES) $<
+ 	$(LIBTOOL) --mode=compile $(CC) -c $(CPPFLAGS) $(DEFINES) $<
  
 -LANG_LIBDIR 	= @PYTHONLIBDIR@
 +LANG_LIBDIR 	= $(DESTDIR)@PYTHONLIBDIR@
  
  SWIG		= swig1.2 -I../../pdflib -python -stat
  SWIG_LIB	= pdflib_py.la
-@@ -65,6 +65,7 @@
- 	-$(LIBTOOL) --mode=execute -dlopen $(SWIG_LIB) python pdfclock.py
+@@ -62,6 +62,7 @@
+ 	-$(LIBTOOL) --mode=execute -dlopen $(SWIG_LIB) python personalize.py
  
  install: $(SWIG_LIB)
-+	install -d $(LANG_LIBDIR)
- 	$(LIBTOOL) --mode=install \
- 		$(INSTALL_DATA) $(SWIG_LIB) $(LANG_LIBDIR)
- 
-diff -Nur pdflib-3.02.orig/bind/tcl/Makefile.in pdflib-3.02/bind/tcl/Makefile.in
---- pdflib-3.02.orig/bind/tcl/Makefile.in	Tue Aug 22 03:02:00 2000
-+++ pdflib-3.02/bind/tcl/Makefile.in	Sat Sep 16 06:15:49 2000
-@@ -27,8 +27,8 @@
++	$(INSTALL) -d $(LANG_LIBDIR)
+ 	@-if test -f .libs/libpdflib_py.dylib; then		\
+ 	    $(INSTALL_DATA) .libs/pdflib_py.so $(LANG_LIBDIR);	\
+ 	else							\
+diff -urN pdflib-4.0.0.org/bind/tcl/Makefile.in pdflib-4.0.0/bind/tcl/Makefile.in
+--- pdflib-4.0.0.org/bind/tcl/Makefile.in	Thu May 10 21:46:35 2001
++++ pdflib-4.0.0/bind/tcl/Makefile.in	Thu May 10 22:12:13 2001
+@@ -26,8 +26,8 @@
  .c.$(OBJ):
- 	@$(LIBTOOL) --mode=compile $(CC) -c $(CPPFLAGS) $(DEFINES) $<
+ 	$(LIBTOOL) --mode=compile $(CC) -c $(CPPFLAGS) $(DEFINES) $<
  
 -LANG_LIBDIR 	= @TCLPACKAGEDIR@
 -TCLBIN		= @TCLBIN@
@@ -96,23 +113,23 @@ diff -Nur pdflib-3.02.orig/bind/tcl/Makefile.in pdflib-3.02/bind/tcl/Makefile.in
  
  SWIG		= swig1.2 -I../../pdflib -tcl -stat
  SWIG_LIB	= pdflib_tcl.la
-diff -Nur pdflib-3.02.orig/pdflib/Makefile.in pdflib-3.02/pdflib/Makefile.in
---- pdflib-3.02.orig/pdflib/Makefile.in	Tue Aug 22 03:02:00 2000
-+++ pdflib-3.02/pdflib/Makefile.in	Sat Sep 16 06:15:49 2000
-@@ -17,12 +17,12 @@
- LIBTOOL		= ../libtool
+diff -urN pdflib-4.0.0.org/pdflib/Makefile.in pdflib-4.0.0/pdflib/Makefile.in
+--- pdflib-4.0.0.org/pdflib/Makefile.in	Thu May 10 21:46:34 2001
++++ pdflib-4.0.0/pdflib/Makefile.in	Thu May 10 22:12:13 2001
+@@ -16,11 +16,11 @@
+ INTERNALLIBS	= @INTERNALLIBS@
  
  # installation directories
--prefix = @prefix@
--exec_prefix = @exec_prefix@
-+prefix = $(DESTDIR)@prefix@
-+exec_prefix = $(DESTDIR)@exec_prefix@
- 
- # directories for the final library and include files for PDFlib users
--libdir = @libdir@
--includedir = @includedir@
-+libdir = $(DESTDIR)@libdir@
-+includedir = $(DESTDIR)@includedir@
+-prefix 		= @prefix@
+-exec_prefix 	= @exec_prefix@
+-libdir 		= @libdir@
+-includedir 	= @includedir@
+-bindir      	= @bindir@
++prefix 		= $(DESTDIR)@prefix@
++exec_prefix 	= $(DESTDIR)@exec_prefix@
++libdir 		= $(DESTDIR)@libdir@
++includedir 	= $(DESTDIR)@includedir@
++bindir      	= $(DESTDIR)@bindir@
  
  TIFFLIBINC	= @TIFFLIBINC@
  ZLIBINC		= @ZLIBINC@
