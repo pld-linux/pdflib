@@ -6,12 +6,13 @@ Summary:	Portable C library for dynamically generating PDF files
 Summary(pl):	Przeno¶na biblioteka C do dynamicznego generowania plików PDF
 Name:		pdflib
 Version:	4.0.3
-Release:	3
+Release:	4
 License:	Aladdin Free Public License
 Group:		Libraries
 Source0:	http://www.pdflib.com/pdflib/download/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-shared-libs.patch
+Patch2:		%{name}-perl_paths.patch
 URL:		http://www.pdflib.com/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -108,6 +109,7 @@ Statyczna biblioteka pdflib.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p0
 
 %build
 %{__libtoolize}
@@ -117,7 +119,8 @@ Statyczna biblioteka pdflib.
 	--enable-cxx \
 	--enable-shared-pdflib \
 	--with-py=%{py_sitedir} --with-pyincl=%{py_incdir} \
-	--with-perl=%{_bindir}/perl \
+	--with-perl=%{__perl} \
+	--with-perlincl=%{perl_archlib}/CORE \
 	--with-tcl=%{_bindir}/tclsh \
 	--with-zlib \
 	--with-pnglib \
@@ -128,7 +131,8 @@ Statyczna biblioteka pdflib.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 install ./bind/cpp/pdflib.hpp $RPM_BUILD_ROOT%{_includedir}
 
@@ -155,8 +159,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files perl
 %defattr(644,root,root,755)
-%{perl_sitearch}/pdflib_pl.pm
-%attr(755,root,root) %{perl_sitearch}/pdflib_pl.so*
+%{perl_vendorarch}/pdflib_pl.pm
+%attr(755,root,root) %{perl_vendorarch}/pdflib_pl.so*
 
 %files tcl
 %defattr(644,root,root,755)
@@ -170,6 +174,6 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libpdf.a
-%{perl_sitearch}/pdflib_pl.a
+%{perl_vendorarch}/pdflib_pl.a
 %{_libdir}/tcl*/pdflib/pdflib_tcl.a
 %{py_libdir}/lib-dynload/pdflib_py.a
