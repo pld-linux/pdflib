@@ -89,7 +89,7 @@ Obsoletes:	%{name}-tcl8.0
 Tcl bindings for pdflib.
 
 %description tcl -l pl
-Dowi±zania TCL dla pdflib.
+Dowi±zania Tcl dla pdflib.
 
 %package python
 Summary:	Python bindings for pdflib
