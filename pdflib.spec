@@ -64,7 +64,6 @@ Summary:	Perl bindings for pdflib
 Summary(pl):	Dowi±zania Perla do pdflib
 Group:		Development/Languages/Perl
 Requires:	%{name} = %{version}-%{release}
-Provides:	perl(pdflib_pl) = 4.0
 Obsoletes:	%{name}-perl5
 
 %description perl
