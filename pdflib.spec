@@ -14,11 +14,12 @@ Group(pl):	Biblioteki
 Source0:	http://www.pdflib.com/pdflib/download/%{name}-%{version}.tar.gz
 Patch0:		pdflib-DESTDIR.patch
 BuildRequires:	python-devel
-BuildRequires:	perl-devel
+BuildRequires:	perl-devel >= 5.6.1
 BuildRequires:	tcl-devel
 BuildRequires:	zlib-devel
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	libtiff-devel
+BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
