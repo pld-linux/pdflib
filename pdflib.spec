@@ -9,22 +9,6 @@ Version:	4.0.2
 Release:	1
 License:	Alladin Free Public License
 Group:		Libraries
-Group(cs):	Knihovny
-Group(da):	Biblioteker
-Group(de):	Bibliotheken
-Group(es):	Bibliotecas
-Group(fr):	Librairies
-Group(is):	Ağgerğasöfn
-Group(it):	Librerie
-Group(ja):	¥é¥¤¥Ö¥é¥ê
-Group(no):	Biblioteker
-Group(pl):	Biblioteki
-Group(pt):	Bibliotecas
-Group(pt_BR):	Bibliotecas
-Group(ru):	âÉÂÌÉÏÔÅËÉ
-Group(sl):	Knji¾nice
-Group(sv):	Bibliotek
-Group(uk):	â¦ÂÌ¦ÏÔÅËÉ
 Source0:	http://www.pdflib.com/pdflib/download/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-shared-libs.patch
@@ -58,22 +42,6 @@ oraz hipertekstu.
 Summary:	Header file for pdflib
 Summary(pl):	Pliki nag³ówkowe dla %{name}
 Group:		Development/Libraries
-Group(cs):	Vıvojové prostøedky/Knihovny
-Group(da):	Udvikling/Biblioteker
-Group(de):	Entwicklung/Bibliotheken
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(is):	Şróunartól/Ağgerğasöfn
-Group(it):	Sviluppo/Librerie
-Group(ja):	³«È¯/¥é¥¤¥Ö¥é¥ê
-Group(no):	Utvikling/Bibliotek
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(pt):	Desenvolvimento/Bibliotecas
-Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
-Group(sl):	Razvoj/Knji¾nice
-Group(sv):	Utveckling/Bibliotek
-Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	%{name} = %{version}
 
 %description devel
@@ -88,20 +56,6 @@ biblioteki PDF.
 Summary:	Perl bindings for pdflib
 Summary(pl):	Dowi±zania Perla do pdflib
 Group:		Development/Languages/Perl
-Group(cs):	Vıvojové prostøedky/Programovací jazyky/Perl
-Group(da):	Udvikling/Sprog/Perl
-Group(de):	Entwicklung/Sprachen/Perl
-Group(es):	Desarrollo/Lenguajes/Perl
-Group(fr):	Development/Langues/Perl
-Group(is):	Şróunartól/Forritunarmál/Perl
-Group(it):	Sviluppo/Linguaggi/Perl
-Group(ja):	³«È¯/¸À¸ì/Perl
-Group(no):	Utvikling/Programmeringsspråk/Perl
-Group(pl):	Programowanie/Jêzyki/Perl
-Group(pt):	Desenvolvimento/Linguagens/Perl
-Group(ru):	òÁÚÒÁÂÏÔËÁ/ñÚÙËÉ/Perl
-Group(sl):	Razvoj/Jeziki/Perl
-Group(sv):	Utveckling/Språk/Perl
 Requires:	%{name} = %{version}
 Obsoletes:	%{name}-perl5
 
@@ -115,20 +69,6 @@ Dowi±zania Perla do pdflib.
 Summary:	Tcl bindings for pdflib
 Summary(pl):	Dowi±zania Tcl do pdflib
 Group:		Development/Languages/Tcl
-Group(cs):	Vıvojové prostøedky/Programovací jazyky/Tcl
-Group(da):	Udvikling/Sprog/Tcl
-Group(de):	Entwicklung/Sprachen/Tcl
-Group(es):	Desarrollo/Lenguajes/Tcl
-Group(fr):	Development/Langues/Tcl
-Group(is):	Şróunartól/Forritunarmál/Tcl
-Group(it):	Sviluppo/Linguaggi/Tcl
-Group(ja):	³«È¯/¸À¸ì/Tcl
-Group(no):	Utvikling/Programmeringsspråk/Tcl
-Group(pl):	Programowanie/Jêzyki/Tcl
-Group(pt):	Desenvolvimento/Linguagens/Tcl
-Group(ru):	òÁÚÒÁÂÏÔËÁ/ñÚÙËÉ/Tcl
-Group(sl):	Razvoj/Jeziki/Tcl
-Group(sv):	Utveckling/Språk/Tcl
 Requires:	%{name} = %{version}
 Obsoletes:	%{name}-tcl8.0
 
@@ -142,20 +82,6 @@ Dowi±zania TCL dla pdflib.
 Summary:	Python bindings for pdflib
 Summary(pl):	Dowi±zania pythona dla pdflib
 Group:		Development/Languages/Python
-Group(cs):	Vıvojové prostøedky/Programovací jazyky/Python
-Group(da):	Udvikling/Sprog/Python
-Group(de):	Entwicklung/Sprachen/Python
-Group(es):	Desarrollo/Lenguajes/Python
-Group(fr):	Development/Langues/Python
-Group(is):	Şróunartól/Forritunarmál/Python
-Group(it):	Sviluppo/Linguaggi/Python
-Group(ja):	³«È¯/¸À¸ì/Python
-Group(no):	Utvikling/Programmeringsspråk/Python
-Group(pl):	Programowanie/Jêzyki/Python
-Group(pt):	Desenvolvimento/Linguagens/Python
-Group(ru):	òÁÚÒÁÂÏÔËÁ/ñÚÙËÉ/Python
-Group(sl):	Razvoj/Jeziki/Python
-Group(sv):	Utveckling/Språk/Python
 Requires:	%{name} = %{version}
 %requires_eq	python
 Obsoletes:	%{name}-python1.5
@@ -170,22 +96,6 @@ Dowi±zania pythona dla pdflib.
 Summary:	Static libraries for pdflib
 Summary(pl):	Statyczna biblioteka pdflib
 Group:		Development/Libraries
-Group(cs):	Vıvojové prostøedky/Knihovny
-Group(da):	Udvikling/Biblioteker
-Group(de):	Entwicklung/Bibliotheken
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(is):	Şróunartól/Ağgerğasöfn
-Group(it):	Sviluppo/Librerie
-Group(ja):	³«È¯/¥é¥¤¥Ö¥é¥ê
-Group(no):	Utvikling/Bibliotek
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(pt):	Desenvolvimento/Bibliotecas
-Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
-Group(sl):	Razvoj/Knji¾nice
-Group(sv):	Utveckling/Bibliotek
-Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	%{name}-devel = %{version}
 
 %description static
