@@ -1,4 +1,5 @@
 %include        /usr/lib/rpm/macros.perl
+%include        /usr/lib/rpm/macros.python
 
 %define python_include_dir %(echo `python -c "import sys; print (sys.prefix + '/include/python' + sys.version[:3])"`)
 
