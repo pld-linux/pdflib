@@ -111,7 +111,7 @@ Statyczna biblioteka pdflib.
 
 %build
 %{__libtoolize}
-aclocal --output=config/aclocal.m4
+%{__aclocal} --output=config/aclocal.m4
 %{__autoconf}
 %configure \
 	--enable-cxx \
