@@ -27,6 +27,8 @@ BuildRequires:	tcl-devel
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define tcl_ver %(echo `echo "puts [info tclversion]" | tclsh`)
+
 %description
 PDFlib is a C library for generating PDF files. It offers a graphics
 API with support for drawing, text, fonts, images, and hypertext. Call
@@ -123,6 +125,7 @@ Statyczna biblioteka pdflib.
 	--with-perl=%{__perl} \
 	--with-perlincl=%{perl_archlib}/CORE \
 	--with-tcl=%{_bindir}/tclsh \
+	--with-tclpkg=%{_libdir}/tcl%{tcl_ver} \
 	--with-zlib \
 	--with-pnglib \
 	--with-tifflib
