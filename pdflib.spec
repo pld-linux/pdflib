@@ -144,9 +144,6 @@ done
 
 install ./bind/cpp/pdflib.hpp $RPM_BUILD_ROOT%{_includedir}
 
-rm -f doc/readme_{ebcdic,mac,win}.txt
-gzip -9nf readme.txt doc/*.txt
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -159,7 +156,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc *.gz doc/*
+%doc readme.txt doc/{readme_unix,compatibility}.txt
 %attr(755,root,root) %{_libdir}/lib*.so
 %attr(755,root,root) %{_libdir}/lib*.la
 %{_includedir}/pdflib.h
