@@ -110,7 +110,7 @@ Statyczna biblioteka pdflib.
 %patch1 -p1
 
 %build
-libtoolize --copy --force
+%{__libtoolize}
 aclocal --output=config/aclocal.m4
 %{__autoconf}
 if [ -f %{_pkgconfigdir}/libpng12.pc ] ; then
