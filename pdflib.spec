@@ -6,7 +6,7 @@ Summary:	Portable C library for dynamically generating PDF files
 Summary(pl):	Przeno¶na biblioteka C do dynamicznego generowania plików PDF
 Name:		pdflib
 Version:	4.0.3
-Release:	6
+Release:	7
 License:	Aladdin Free Public License
 Group:		Libraries
 Source0:	http://www.pdflib.com/pdflib/download/%{name}-%{version}.tar.gz
@@ -63,6 +63,7 @@ Summary:	Perl bindings for pdflib
 Summary(pl):	Dowi±zania Perla do pdflib
 Group:		Development/Languages/Perl
 Requires:	%{name} = %{version}-%{release}
+Provides:	perl(pdflib_pl) = 4.0
 Obsoletes:	%{name}-perl5
 
 %description perl
