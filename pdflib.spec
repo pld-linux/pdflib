@@ -51,6 +51,8 @@ Summary:	Header file for pdflib
 Summary(pl):	Pliki nag³ówkowe biblioteki pdflib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	libpng-devel >= 1.0.8
+Requires:	libtiff-devel
 
 %description devel
 This package contains the files needed for compiling programs using
