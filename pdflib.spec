@@ -209,14 +209,14 @@ rm -rf $RPM_BUILD_ROOT
 %files perl
 %defattr(644,root,root,755)
 %{perl_vendorarch}/pdflib_pl.pm
-%attr(755,root,root) %{perl_vendorarch}/pdflib_pl.so.*
+%attr(755,root,root) %{perl_vendorarch}/pdflib_pl.so*
 
 %files tcl
 %defattr(644,root,root,755)
 %dir %{_libdir}/tcl*/pdflib
-%attr(755,root,root) %{_libdir}/tcl*/pdflib/pdflib_tcl.so.*
+%attr(755,root,root) %{_libdir}/tcl*/pdflib/pdflib_tcl.so*
 %{_libdir}/tcl*/pdflib/pkgIndex.tcl
 
 %files python
 %defattr(644,root,root,755)
-%attr(755,root,root) %{py_libdir}/lib-dynload/pdflib_py.so.*
+%attr(755,root,root) %{py_libdir}/lib-dynload/pdflib_py.so*
