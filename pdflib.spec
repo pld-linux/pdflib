@@ -1,11 +1,6 @@
 #
 # Conditional build:
-%bcond_with	java
-#
-# TODO:
-#		- java pkg.
-#
-%undefine	with_java
+%bcond_without	java	# Java binding
 #
 %include	/usr/lib/rpm/macros.perl
 Summary:	Portable C library for dynamically generating PDF files
@@ -27,7 +22,7 @@ BuildRequires:	automake
 %{?with_java:BuildRequires:	jdk >= 1.4}
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	libtiff-devel
-BuildRequires:	libtool >= 0:1.4.2-9
+BuildRequires:	libtool >= 1:1.4.2-9
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	python-devel >= 2.2
 BuildRequires:	python-modules >= 2.2
@@ -53,7 +48,7 @@ oraz hipertekstu.
 
 %package devel
 Summary:	Header file for pdflib
-Summary(pl):	Pliki nag堯wkowe dla %{name}
+Summary(pl):	Pliki nag堯wkowe biblioteki pdflib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -65,12 +60,36 @@ the PDF library.
 Pakiet zawiera pliki potrzebne do kompilacji program闚 u篡waj帷ych
 biblioteki PDF.
 
+%package static
+Summary:	Static pdflib library
+Summary(pl):	Statyczna biblioteka pdflib
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description static
+Static pdflib library.
+
+%description static -l pl
+Statyczna biblioteka pdflib.
+
+%package java
+Summary:	Java bindings for pdflib
+Summary(pl):	Dowi您ania Javy do pdflib
+Group:		Development/Languages/Java
+Requires:	%{name} = %{version}-%{release}
+
+%description java
+Java bindings for pdflib.
+
+%description java -l pl
+Dowi您ania Javy do pdflib.
+
 %package perl
 Summary:	Perl bindings for pdflib
 Summary(pl):	Dowi您ania Perla do pdflib
 Group:		Development/Languages/Perl
 Requires:	%{name} = %{version}-%{release}
-Obsoletes:	%{name}-perl5
+Obsoletes:	pdflib-perl5
 
 %description perl
 Perl bindings for pdflib.
@@ -83,7 +102,7 @@ Summary:	Tcl bindings for pdflib
 Summary(pl):	Dowi您ania Tcl do pdflib
 Group:		Development/Languages/Tcl
 Requires:	%{name} = %{version}-%{release}
-Obsoletes:	%{name}-tcl8.0
+Obsoletes:	pdflib-tcl8.0
 
 %description tcl
 Tcl bindings for pdflib.
@@ -97,25 +116,13 @@ Summary(pl):	Dowi您ania pythona dla pdflib
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
 %pyrequires_eq	python
-Obsoletes:	%{name}-python1.5
+Obsoletes:	pdflib-python1.5
 
 %description python
 Python bindings for pdflib.
 
 %description python -l pl
 Dowi您ania pythona dla pdflib.
-
-%package static
-Summary:	Static libraries for pdflib
-Summary(pl):	Statyczna biblioteka pdflib
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-
-%description static
-Static libraries for pdflib.
-
-%description static -l pl
-Statyczna biblioteka pdflib.
 
 %prep
 %setup -q
@@ -132,7 +139,8 @@ Statyczna biblioteka pdflib.
 	--enable-cxx \
 	--enable-shared-pdflib \
 	--with%{!?with_java:out}-java \
-	--with-py=%{py_sitedir} --with-pyincl=%{py_incdir} \
+	--with-py=%{py_sitedir} \
+	--with-pyincl=%{py_incdir} \
 	--with-perl=%{__perl} \
 	--with-perlincl=%{perl_archlib}/CORE \
 	--with-tcl=%{_bindir}/tclsh \
@@ -141,7 +149,7 @@ Statyczna biblioteka pdflib.
 	--with-pnglib \
 	--with-tifflib
 
-%{__make} CPPFLAGS="$CPPFLAGS"
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -149,13 +157,24 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install ./bind/cpp/pdflib.hpp $RPM_BUILD_ROOT%{_includedir}
+install bind/cpp/pdflib.hpp $RPM_BUILD_ROOT%{_includedir}
+
+%if %{with java}
+install -d $RPM_BUILD_ROOT%{_javadir}
+install bind/java/pdflib.jar $RPM_BUILD_ROOT%{_javadir}
+rm -f $RPM_BUILD_ROOT%{_libdir}/libpdf_java.{la,a}
+%endif
+
+rm -f $RPM_BUILD_ROOT{%{perl_vendorarch},%{_libdir}/tcl*/pdflib,%{py_libdir}/lib-dynload}/pdflib*.{la,a}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
+
+%post	java -p /sbin/ldconfig
+%postun	java -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
@@ -172,6 +191,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/pdflib.h
 %{_includedir}/pdflib.hpp
 
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/libpdf.a
+
+%if %{with java}
+%files java
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libpdf_java.so.*.*.*
+%attr(755,root,root) %{_libdir}/libpdf_java.so
+%{_javadir}/pdflib.jar
+%endif
+
 %files perl
 %defattr(644,root,root,755)
 %{perl_vendorarch}/pdflib_pl.pm
@@ -179,16 +210,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files tcl
 %defattr(644,root,root,755)
+%dir %{_libdir}/tcl*/pdflib
 %attr(755,root,root) %{_libdir}/tcl*/pdflib/pdflib_tcl.so.*
 %{_libdir}/tcl*/pdflib/pkgIndex.tcl
 
 %files python
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_libdir}/lib-dynload/pdflib_py.so.*
-
-%files static
-%defattr(644,root,root,755)
-%{_libdir}/libpdf.a
-%{perl_vendorarch}/pdflib_pl.a
-%{_libdir}/tcl*/pdflib/pdflib_tcl.a
-%{py_libdir}/lib-dynload/pdflib_py.a
