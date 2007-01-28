@@ -2,7 +2,7 @@
 # Conditional build:
 %bcond_without	java	# Java binding
 #
-%ifarch i386 i486 ppc ppc64
+%ifnarch i586 i686 pentium3 pentium4 athlon %{x8664}
 %undefine       with_java
 %endif
 #
