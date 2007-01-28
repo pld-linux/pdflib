@@ -2,6 +2,10 @@
 # Conditional build:
 %bcond_without	java	# Java binding
 #
+%ifarch i386 i486 ppc ppc64
+%undefine       with_java
+%endif
+#
 %include	/usr/lib/rpm/macros.perl
 Summary:	Portable C library for dynamically generating PDF files
 Summary(pl):	Przeno¶na biblioteka C do dynamicznego generowania plików PDF
@@ -33,10 +37,6 @@ BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define tcl_ver %(echo `echo "puts [info tclversion]" | tclsh`)
-
-%ifarch i386 i486 ppc ppc64
-%undefine	with_java
-%endif
 
 %description
 PDFlib is a C library for generating PDF files. It offers a graphics
