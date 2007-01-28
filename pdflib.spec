@@ -7,7 +7,7 @@ Summary:	Portable C library for dynamically generating PDF files
 Summary(pl):	Przeno¶na biblioteka C do dynamicznego generowania plików PDF
 Name:		pdflib
 Version:	4.0.3
-Release:	12
+Release:	13
 License:	Aladdin Free Public License
 Group:		Libraries
 Source0:	%{name}-%{version}.tar.gz
@@ -34,7 +34,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define tcl_ver %(echo `echo "puts [info tclversion]" | tclsh`)
 
-%ifarch ppc ppc64
+%ifarch i386 i486 ppc ppc64
 %undefine	with_java
 %endif
 
