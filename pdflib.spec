@@ -8,7 +8,7 @@
 #
 %include	/usr/lib/rpm/macros.perl
 Summary:	Portable C library for dynamically generating PDF files
-Summary(pl):	Przeno秐a biblioteka C do dynamicznego generowania plik體 PDF
+Summary(pl.UTF-8):   Przeno艣na biblioteka C do dynamicznego generowania plik贸w PDF
 Name:		pdflib
 Version:	4.0.3
 Release:	13
@@ -46,14 +46,14 @@ files! For detailed instructions on PDFlib programming and the
 associated API, see the PDFlib Programming Manual, included in PDF
 format in the PDFlib distribution.
 
-%description -l pl
-PDFlib to biblioteka w C do generowania plik體 PDF. Oferuje ona API do
-obs硊gi grafiki ze wsparciem dla rysowania, tekst體, font體, obrazk體
+%description -l pl.UTF-8
+PDFlib to biblioteka w C do generowania plik贸w PDF. Oferuje ona API do
+obs艂ugi grafiki ze wsparciem dla rysowania, tekst贸w, font贸w, obrazk贸w
 oraz hipertekstu.
 
 %package devel
 Summary:	Header file for pdflib
-Summary(pl):	Pliki nag丑wkowe biblioteki pdflib
+Summary(pl.UTF-8):   Pliki nag艂贸wkowe biblioteki pdflib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libpng-devel >= 1.0.8
@@ -63,37 +63,37 @@ Requires:	libtiff-devel
 This package contains the files needed for compiling programs using
 the PDF library.
 
-%description devel -l pl
-Pakiet zawiera pliki potrzebne do kompilacji program體 u縴waj眂ych
+%description devel -l pl.UTF-8
+Pakiet zawiera pliki potrzebne do kompilacji program贸w u偶ywaj膮cych
 biblioteki PDF.
 
 %package static
 Summary:	Static pdflib library
-Summary(pl):	Statyczna biblioteka pdflib
+Summary(pl.UTF-8):   Statyczna biblioteka pdflib
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static pdflib library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna biblioteka pdflib.
 
 %package java
 Summary:	Java bindings for pdflib
-Summary(pl):	Dowi眤ania Javy do pdflib
+Summary(pl.UTF-8):   Dowi膮zania Javy do pdflib
 Group:		Development/Languages/Java
 Requires:	%{name} = %{version}-%{release}
 
 %description java
 Java bindings for pdflib.
 
-%description java -l pl
-Dowi眤ania Javy do pdflib.
+%description java -l pl.UTF-8
+Dowi膮zania Javy do pdflib.
 
 %package perl
 Summary:	Perl bindings for pdflib
-Summary(pl):	Dowi眤ania Perla do pdflib
+Summary(pl.UTF-8):   Dowi膮zania Perla do pdflib
 Group:		Development/Languages/Perl
 Requires:	%{name} = %{version}-%{release}
 Obsoletes:	pdflib-perl5
@@ -101,12 +101,12 @@ Obsoletes:	pdflib-perl5
 %description perl
 Perl bindings for pdflib.
 
-%description perl -l pl
-Dowi眤ania Perla do pdflib.
+%description perl -l pl.UTF-8
+Dowi膮zania Perla do pdflib.
 
 %package tcl
 Summary:	Tcl bindings for pdflib
-Summary(pl):	Dowi眤ania Tcl do pdflib
+Summary(pl.UTF-8):   Dowi膮zania Tcl do pdflib
 Group:		Development/Languages/Tcl
 Requires:	%{name} = %{version}-%{release}
 Obsoletes:	pdflib-tcl8.0
@@ -114,12 +114,12 @@ Obsoletes:	pdflib-tcl8.0
 %description tcl
 Tcl bindings for pdflib.
 
-%description tcl -l pl
-Dowi眤ania Tcl dla pdflib.
+%description tcl -l pl.UTF-8
+Dowi膮zania Tcl dla pdflib.
 
 %package python
 Summary:	Python bindings for pdflib
-Summary(pl):	Dowi眤ania pythona dla pdflib
+Summary(pl.UTF-8):   Dowi膮zania pythona dla pdflib
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
 %pyrequires_eq	python
@@ -128,8 +128,8 @@ Obsoletes:	pdflib-python1.5
 %description python
 Python bindings for pdflib.
 
-%description python -l pl
-Dowi眤ania pythona dla pdflib.
+%description python -l pl.UTF-8
+Dowi膮zania pythona dla pdflib.
 
 %prep
 %setup -q
