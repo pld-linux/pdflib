@@ -8,7 +8,7 @@
 #
 %include	/usr/lib/rpm/macros.perl
 Summary:	Portable C library for dynamically generating PDF files
-Summary(pl.UTF-8):   Przenośna biblioteka C do dynamicznego generowania plików PDF
+Summary(pl.UTF-8):	Przenośna biblioteka C do dynamicznego generowania plików PDF
 Name:		pdflib
 Version:	4.0.3
 Release:	13
@@ -53,7 +53,7 @@ oraz hipertekstu.
 
 %package devel
 Summary:	Header file for pdflib
-Summary(pl.UTF-8):   Pliki nagłówkowe biblioteki pdflib
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki pdflib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libpng-devel >= 1.0.8
@@ -69,7 +69,7 @@ biblioteki PDF.
 
 %package static
 Summary:	Static pdflib library
-Summary(pl.UTF-8):   Statyczna biblioteka pdflib
+Summary(pl.UTF-8):	Statyczna biblioteka pdflib
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -81,7 +81,7 @@ Statyczna biblioteka pdflib.
 
 %package java
 Summary:	Java bindings for pdflib
-Summary(pl.UTF-8):   Dowiązania Javy do pdflib
+Summary(pl.UTF-8):	Dowiązania Javy do pdflib
 Group:		Development/Languages/Java
 Requires:	%{name} = %{version}-%{release}
 
@@ -93,7 +93,7 @@ Dowiązania Javy do pdflib.
 
 %package perl
 Summary:	Perl bindings for pdflib
-Summary(pl.UTF-8):   Dowiązania Perla do pdflib
+Summary(pl.UTF-8):	Dowiązania Perla do pdflib
 Group:		Development/Languages/Perl
 Requires:	%{name} = %{version}-%{release}
 Obsoletes:	pdflib-perl5
@@ -106,7 +106,7 @@ Dowiązania Perla do pdflib.
 
 %package tcl
 Summary:	Tcl bindings for pdflib
-Summary(pl.UTF-8):   Dowiązania Tcl do pdflib
+Summary(pl.UTF-8):	Dowiązania Tcl do pdflib
 Group:		Development/Languages/Tcl
 Requires:	%{name} = %{version}-%{release}
 Obsoletes:	pdflib-tcl8.0
@@ -119,7 +119,7 @@ Dowiązania Tcl dla pdflib.
 
 %package python
 Summary:	Python bindings for pdflib
-Summary(pl.UTF-8):   Dowiązania pythona dla pdflib
+Summary(pl.UTF-8):	Dowiązania pythona dla pdflib
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
 %pyrequires_eq	python
