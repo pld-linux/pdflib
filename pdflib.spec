@@ -147,7 +147,7 @@ Dowiązania pythona dla pdflib.
 %configure \
 	--enable-cxx \
 	--enable-shared-pdflib \
-	%{?with_java:--with-java=%{java_home}} \
+	%{?with_java:--with-java=%{java_home}}%{!?with_java:--without-java} \
 	--with-py=%{py_sitedir} \
 	--with-pyincl=%{py_incdir} \
 	--with-perl=%{__perl} \
