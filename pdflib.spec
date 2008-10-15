@@ -20,6 +20,7 @@ Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-shared-libs.patch
 Patch2:		%{name}-perl_paths.patch
 Patch3:		%{name}-pdflib_pl_pm_VERSION.patch
+Patch4:		%{name}-ac.patch
 URL:		http://www.pdflib.com/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -137,10 +138,11 @@ Dowiązania pythona dla pdflib.
 %patch1 -p1
 %patch2 -p0
 %patch3 -p1
+%patch4 -p1
 
 %build
 %{__libtoolize}
-%{__aclocal} --output=config/aclocal.m4
+%{__aclocal}
 %{__autoconf}
 %configure \
 	--enable-cxx \
