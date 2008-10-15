@@ -1,0 +1,11 @@
+--- pdflib-4.0.3/configure.in.orig	2008-10-15 01:15:56.984036426 +0200
++++ pdflib-4.0.3/configure.in	2008-10-15 01:16:12.482971220 +0200
+@@ -80,7 +80,7 @@
+ dnl install-sh will be searched (and found) here
+ AC_CONFIG_AUX_DIR(config)
+ 
+-builtin(include, config/aclocal.m4)
++dnl builtin(include, config/aclocal.m4)
+ 
+ dnl Check the system name
+ AC_CANONICAL_HOST
