@@ -192,6 +192,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc readme.txt doc/{changes,compatibility,readme_unix}.txt
 %doc doc/aladdin-license.pdf
 %attr(755,root,root) %{_libdir}/libpdf.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libpdf.so.1
 
 %files devel
 %defattr(644,root,root,755)
@@ -210,6 +211,7 @@ rm -rf $RPM_BUILD_ROOT
 %files java
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libpdf_java.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libpdf_java.so.0
 %attr(755,root,root) %{_libdir}/libpdf_java.so
 %{_javadir}/pdflib.jar
 %endif
