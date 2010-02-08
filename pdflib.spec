@@ -210,8 +210,6 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with java}
 %files java
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libpdf_java.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libpdf_java.so.0
 %attr(755,root,root) %{_libdir}/libpdf_java.so
 %{_javadir}/pdflib.jar
 %endif
