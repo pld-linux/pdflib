@@ -27,6 +27,7 @@ Patch2:		%{name}-perl_paths.patch
 Patch3:		%{name}-pdflib_pl_pm_VERSION.patch
 Patch4:		%{name}-ac.patch
 Patch5:		%{name}-build.patch
+Patch6:		%{name}-libpng.patch
 URL:		http://www.pdflib.com/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -146,6 +147,7 @@ Dowiązania pythona dla pdflib.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 %{__libtoolize}
