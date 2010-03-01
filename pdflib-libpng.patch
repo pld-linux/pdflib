@@ -1,0 +1,58 @@
+diff -ur pdflib-4.0.3.orig/pdflib/p_png.c pdflib-4.0.3/pdflib/p_png.c
+--- pdflib-4.0.3.orig/pdflib/p_png.c	2002-01-26 19:32:18.000000000 +0100
++++ pdflib-4.0.3/pdflib/p_png.c	2010-03-01 10:44:56.537284868 +0100
+@@ -408,7 +408,7 @@
+ 	return -1;	/* Couldn't open PNG file */
+     }
+ 
+-    if (fread(sig, 1, 8, image->fp) == 0 || !png_check_sig(sig, 8)) {
++    if (fread(sig, 1, 8, image->fp) == 0 || !png_sig_cmp(sig, 0, 8)) {
+ 	fclose(image->fp);
+ 	png_destroy_read_struct(&image->info.png.png_ptr,
+ 		&image->info.png.info_ptr, NULL);
+diff -ur pdflib-4.0.3.orig/png/png.c pdflib-4.0.3/png/png.c
+--- pdflib-4.0.3.orig/png/png.c	2001-03-21 17:12:07.000000000 +0100
++++ pdflib-4.0.3/png/png.c	2010-03-01 10:45:38.760604885 +0100
+@@ -125,16 +125,6 @@
+    return ((int)(png_memcmp(&sig[start], &png_signature[start], num_to_check)));
+ }
+ 
+-/* (Obsolete) function to check signature bytes.  It does not allow one
+- * to check a partial signature.  This function might be removed in the
+- * future - use png_sig_cmp().  Returns true (nonzero) if the file is a PNG.
+- */
+-int PNGAPI
+-png_check_sig(png_bytep sig, int num)
+-{
+-  return ((int)!png_sig_cmp(sig, (png_size_t)0, (png_size_t)num));
+-}
+-
+ /* Function to allocate memory for zlib and clear it to 0. */
+ voidpf PNGAPI
+ png_zalloc(voidpf png_ptr, uInt items, uInt size)
+diff -ur pdflib-4.0.3.orig/png/pngconf.h pdflib-4.0.3/png/pngconf.h
+--- pdflib-4.0.3.orig/png/pngconf.h	2002-03-25 17:06:09.000000000 +0100
++++ pdflib-4.0.3/png/pngconf.h	2010-03-01 10:45:07.647274500 +0100
+@@ -35,7 +35,6 @@
+ #define png_bKGD pdf_png_bKGD
+ #define png_cHRM pdf_png_cHRM
+ #define png_calculate_crc pdf_png_calculate_crc
+-#define png_check_sig pdf_png_check_sig
+ #define png_convert_to_rfc1123 pdf_png_convert_to_rfc1123
+ #define png_create_info_struct pdf_png_create_info_struct
+ #define png_data_freer pdf_png_data_freer
+diff -ur pdflib-4.0.3.orig/png/png.h pdflib-4.0.3/png/png.h
+--- pdflib-4.0.3.orig/png/png.h	2001-03-21 17:12:07.000000000 +0100
++++ pdflib-4.0.3/png/png.h	2010-03-01 10:45:25.460606752 +0100
+@@ -1181,11 +1181,6 @@
+ extern PNG_EXPORT(int,png_sig_cmp) PNGARG((png_bytep sig, png_size_t start,
+    png_size_t num_to_check));
+ 
+-/* Simple signature checking function.  This is the same as calling
+- * png_check_sig(sig, n) := !png_sig_cmp(sig, 0, n).
+- */
+-extern PNG_EXPORT(int,png_check_sig) PNGARG((png_bytep sig, int num));
+-
+ /* Allocate and initialize png_ptr struct for reading, and any other memory. */
+ extern PNG_EXPORT(png_structp,png_create_read_struct)
+    PNGARG((png_const_charp user_png_ver, png_voidp error_ptr,
