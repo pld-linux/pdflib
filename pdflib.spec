@@ -6,17 +6,19 @@
 #
 # Conditional build:
 %bcond_without	java	# Java binding
-#
+
 %ifnarch i586 i686 pentium3 pentium4 athlon %{x8664}
 %undefine       with_java
 %endif
-#
+
+%define		skip_post_check_so	pdflib_pl.so.0.0.0 pdflib_tcl.so.0.0.0 pdflib_py.so.0.0.0
+
 %include	/usr/lib/rpm/macros.perl
 Summary:	Portable C library for dynamically generating PDF files
 Summary(pl.UTF-8):	Przenośna biblioteka C do dynamicznego generowania plików PDF
 Name:		pdflib
 Version:	4.0.3
-Release:	20
+Release:	21
 License:	Aladdin Free Public License
 Group:		Libraries
 Source0:	%{name}-%{version}.tar.gz
