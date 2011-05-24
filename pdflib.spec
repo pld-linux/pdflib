@@ -173,19 +173,21 @@ Dowiązania pythona dla pdflib.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install bind/cpp/pdflib.hpp $RPM_BUILD_ROOT%{_includedir}
+cp -p bind/cpp/pdflib.hpp $RPM_BUILD_ROOT%{_includedir}
 
 %if %{with java}
 install -d $RPM_BUILD_ROOT%{_javadir}
-install bind/java/pdflib.jar $RPM_BUILD_ROOT%{_javadir}
+cp -p bind/java/pdflib.jar $RPM_BUILD_ROOT%{_javadir}
 rm -f $RPM_BUILD_ROOT%{_libdir}/libpdf_java.{la,a}
 %endif
 
 rm -f $RPM_BUILD_ROOT{%{perl_vendorarch},%{_libdir}/tcl*/pdflib,%{py_libdir}/lib-dynload}/pdflib*.{la,a}
+
+# ensure soname deps are generated
+find $RPM_BUILD_ROOT -name '*.so*' | xargs chmod +x
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -220,6 +222,8 @@ rm -rf $RPM_BUILD_ROOT
 %files java
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libpdf_java.so
+%attr(755,root,root) %{_libdir}/libpdf_java.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libpdf_java.so.0
 %{_javadir}/pdflib.jar
 %endif
 
