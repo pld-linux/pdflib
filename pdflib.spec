@@ -2,7 +2,8 @@
 # - where to install libpdf_java.so? %{_libdir} does not seem to be good
 #   choice. BTW what is standard java.library.path in other distros?
 # - do we really need to package libpdf_(binding).so.*? libpdf_(binding).so
-#   should be enough for python, perl and tcl.
+#   should be enough for python, perl and tcl. -- patch linking with -avoid-version
+# - fix install so that executable perms are preserved
 #
 # Conditional build:
 %bcond_without	java	# Java binding
