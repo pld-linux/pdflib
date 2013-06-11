@@ -51,3 +51,14 @@
  	return;
      }
  	
+--- pdflib-4.0.3/bind/perl/pdflib_pl.c~	2013-06-11 13:57:16.709215093 +0200
++++ pdflib-4.0.3/bind/perl/pdflib_pl.c	2013-06-11 14:28:31.358937900 +0200
+@@ -388,7 +388,7 @@
+ #include "pdflib.h"
+ 
+ /* exception handling is currently not thread-safe! */
+-#define SWIG_exception(msg)   	croak(msg)
++#define SWIG_exception(msg)   	croak("%s", msg)
+ static jmp_buf			exception_buffer;
+ static int			exception_status;
+ static char			error_message[256];
