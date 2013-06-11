@@ -1,0 +1,53 @@
+--- pdflib-4.0.3/pdflib/p_basic.c~	2002-06-19 18:01:15.000000000 +0200
++++ pdflib-4.0.3/pdflib/p_basic.c	2013-06-11 13:52:10.282606066 +0200
+@@ -308,7 +308,7 @@
+     switch (type) {
+ 	/* Issue a warning message and continue */
+ 	case PDF_NonfatalError:
+-	    (void) fprintf(stderr, msg);
++	    (void) fprintf(stderr, "%s", msg);
+ 	    return;
+ 
+ 	/* give up in all other cases */
+@@ -324,7 +324,7 @@
+ 	case PDF_SystemError:
+ 	case PDF_UnknownError:
+ 	default:
+-	    (void) fprintf(stderr, msg);	/* print message */
++	    (void) fprintf(stderr, "%s", msg);	/* print message */
+ 	    PDF_delete(p);			/* clean up PDFlib */
+ 	    exit(99);				/* good-bye */
+     }
+--- pdflib-4.0.3/bind/perl/pdflib_pl.c~	2002-01-21 20:56:32.000000000 +0100
++++ pdflib-4.0.3/bind/perl/pdflib_pl.c	2013-06-11 13:55:20.607974789 +0200
+@@ -407,7 +407,7 @@
+ 
+     /* Issue a warning message and continue for non-fatal errors */
+     if (type == PDF_NonfatalError) {
+-	fprintf(stderr, error_message);
++	fprintf(stderr, "%s", error_message);
+ 	return;
+     }
+ 	
+--- pdflib-4.0.3/bind/python/pdflib_py.c~	2002-01-07 19:26:29.000000000 +0100
++++ pdflib-4.0.3/bind/python/pdflib_py.c	2013-06-11 13:56:08.775156142 +0200
+@@ -578,7 +578,7 @@
+ 
+     /* Issue a warning message and continue for non-fatal errors */
+     if (type == PDF_NonfatalError) {
+-	fprintf(stderr, error_message);
++	fprintf(stderr, "%s", error_message);
+ 	return;
+     }
+ 	
+--- pdflib-4.0.3/bind/tcl/pdflib_tcl.c~	2002-01-07 19:26:29.000000000 +0100
++++ pdflib-4.0.3/bind/tcl/pdflib_tcl.c	2013-06-11 13:56:38.242137592 +0200
+@@ -397,7 +397,7 @@
+ 
+     /* Issue a warning message and continue for non-fatal errors */
+     if (type == PDF_NonfatalError) {
+-	fprintf(stderr, ex->buffer);
++	fprintf(stderr, "%s", ex->buffer);
+ 	return;
+     }
+ 	
