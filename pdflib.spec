@@ -32,7 +32,7 @@ Patch4:		%{name}-ac.patch
 Patch5:		%{name}-build.patch
 Patch6:		%{name}-libpng.patch
 Patch7:		format-security.patch
-URL:		http://www.pdflib.com/
+URL:		https://www.pdflib.com/
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_java:BuildRequires:	jdk >= 1.4}
@@ -185,10 +185,10 @@ cp -p bind/cpp/pdflib.hpp $RPM_BUILD_ROOT%{_includedir}
 %if %{with java}
 install -d $RPM_BUILD_ROOT%{_javadir}
 cp -p bind/java/pdflib.jar $RPM_BUILD_ROOT%{_javadir}
-rm -f $RPM_BUILD_ROOT%{_libdir}/libpdf_java.{la,a}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libpdf_java.{la,a}
 %endif
 
-rm -f $RPM_BUILD_ROOT{%{perl_vendorarch},%{_libdir}/tcl*/pdflib,%{py_libdir}/lib-dynload}/pdflib*.{la,a}
+%{__rm} $RPM_BUILD_ROOT{%{perl_vendorarch},%{_libdir}/tcl*/pdflib,%{py_libdir}/lib-dynload}/pdflib*.{la,a}
 
 # ensure soname deps are generated
 find $RPM_BUILD_ROOT -name '*.so*' | xargs chmod +x
