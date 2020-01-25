@@ -14,7 +14,6 @@
 
 %define		skip_post_check_so	pdflib_pl.so.0.0.0 pdflib_tcl.so.0.0.0 pdflib_py.so.0.0.0
 
-%include	/usr/lib/rpm/macros.perl
 Summary:	Portable C library for dynamically generating PDF files
 Summary(pl.UTF-8):	Przenośna biblioteka C do dynamicznego generowania plików PDF
 Name:		pdflib
