@@ -18,7 +18,7 @@ Summary:	Portable C library for dynamically generating PDF files
 Summary(pl.UTF-8):	Przenośna biblioteka C do dynamicznego generowania plików PDF
 Name:		pdflib
 Version:	4.0.3
-Release:	42
+Release:	43
 License:	Aladdin Free Public License
 Group:		Libraries
 Source0:	%{name}-%{version}.tar.gz
@@ -31,6 +31,7 @@ Patch4:		%{name}-ac.patch
 Patch5:		%{name}-build.patch
 Patch6:		%{name}-libpng.patch
 Patch7:		format-security.patch
+Patch8:		%{name}-flags.patch
 URL:		https://www.pdflib.com/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -108,7 +109,7 @@ Summary:	Perl bindings for pdflib
 Summary(pl.UTF-8):	Dowiązania Perla do pdflib
 Group:		Development/Languages/Perl
 Requires:	%{name} = %{version}-%{release}
-Obsoletes:	pdflib-perl5
+Obsoletes:	pdflib-perl5 < 4.0.1
 
 %description perl
 Perl bindings for pdflib.
@@ -121,7 +122,7 @@ Summary:	Tcl bindings for pdflib
 Summary(pl.UTF-8):	Dowiązania Tcl do pdflib
 Group:		Development/Languages/Tcl
 Requires:	%{name} = %{version}-%{release}
-Obsoletes:	pdflib-tcl8.0
+Obsoletes:	pdflib-tcl8.0 < 4.0.1
 
 %description tcl
 Tcl bindings for pdflib.
@@ -135,7 +136,7 @@ Summary(pl.UTF-8):	Dowiązania pythona dla pdflib
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
 %pyrequires_eq	python
-Obsoletes:	pdflib-python1.5
+Obsoletes:	pdflib-python1.5 < 4.0.1
 
 %description python
 Python bindings for pdflib.
@@ -153,6 +154,7 @@ Dowiązania pythona dla pdflib.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 %build
 %{__libtoolize}
@@ -161,7 +163,6 @@ Dowiązania pythona dla pdflib.
 %configure \
 	CFLAGS="-DUSE_INTERP_RESULT %{rpmcflags}" \
 	--enable-cxx \
-	--enable-shared-pdflib \
 	%{?with_java:--with-java=%{java_home}}%{!?with_java:--without-java} \
 	--with-py=%{py_sitedir} \
 	--with-pyincl=%{py_incdir} \
@@ -177,6 +178,7 @@ Dowiązania pythona dla pdflib.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 

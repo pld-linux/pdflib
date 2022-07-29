@@ -1,0 +1,91 @@
+--- pdflib-4.0.3/bind/java/Makefile.in.orig	2022-07-29 20:01:45.083593872 +0200
++++ pdflib-4.0.3/bind/java/Makefile.in	2022-07-29 20:15:27.449138735 +0200
+@@ -35,6 +35,8 @@ SWIG_LIB	= libpdf_java.la
+ SWIG_OBJ	= pdflib_java.lo
+ 
+ DEFINES		 = -I../../pdflib @JAVAINCLUDE@ @DEFINES@ 
++CPPFLAGS	= @CPPFLAGS@
++LDFLAGS		= @LDFLAGS@
+ 
+ all:	$(SWIG_LIB) pdflib.jar
+ 
+@@ -48,7 +50,7 @@ swig: ../../pdflib/pdflib.i ../../pdflib
+ # The actual shared library for the language support
+ $(SWIG_LIB): ../../pdflib/pdflib.h ../../pdflib/$(LIBPDF).la $(SWIG_OBJ)
+ 	$(RM) $(SWIG_LIB)
+-	$(LIBTOOL) --mode=link $(CC) -o $@ $(SWIG_OBJ) -rpath $(LANG_LIBDIR) -module $(PDFLIBCONVENIENT)
++	$(LIBTOOL) --mode=link $(CC) -o $@ $(LDFLAGS) $(SWIG_OBJ) -rpath $(LANG_LIBDIR) -module $(PDFLIBCONVENIENT)
+ 	@-if test -f .libs/libpdf_java.dylib; then			\
+ 	    ln .libs/libpdf_java.dylib .libs/libpdf_java.jnilib;	\
+ 	fi
+--- pdflib-4.0.3/bind/perl/Makefile.in.orig	2022-07-29 20:01:45.083593872 +0200
++++ pdflib-4.0.3/bind/perl/Makefile.in	2022-07-29 20:16:16.212207896 +0200
+@@ -35,6 +35,8 @@ SWIG_LIB	= pdflib_pl.la
+ SWIG_OBJ	= pdflib_pl.lo
+ 
+ DEFINES		= @PERLBOOLDEF@ -I../../pdflib @PERLINCLUDE@ @DEFINES@ 
++CPPFLAGS	= @CPPFLAGS@
++LDFLAGS		= @LDFLAGS@
+ 
+ all:	$(SWIG_LIB)
+ 
+@@ -48,7 +50,7 @@ swig: ../../pdflib/pdflib.i ../../pdflib
+ # The actual shared library for the language support
+ $(SWIG_LIB): $(SWIG_OBJ) ../../pdflib/$(LIBPDF).la ../../pdflib/pdflib.h
+ 	$(RM) $(SWIG_LIB)
+-	$(LIBTOOL) --mode=link $(CC) -o $@ $(SWIG_OBJ) -rpath $(LANG_LIBDIR) -module $(PDFLIBCONVENIENT)
++	$(LIBTOOL) --mode=link $(CC) -o $@ $(LDFLAGS) $(SWIG_OBJ) -rpath $(LANG_LIBDIR) -module $(PDFLIBCONVENIENT)
+ 
+ test: all
+ 	-$(PERLBIN) hello.pl
+--- pdflib-4.0.3/bind/python/Makefile.in.orig	2022-07-29 20:01:45.083593872 +0200
++++ pdflib-4.0.3/bind/python/Makefile.in	2022-07-29 20:18:14.148235649 +0200
+@@ -33,6 +33,8 @@ SWIG_LIB	= pdflib_py.la
+ SWIG_OBJ	= pdflib_py.lo
+ 
+ DEFINES 	= -I../../pdflib @PYINCLUDE@ @DEFINES@
++CPPFLAGS	= @CPPFLAGS@
++LDFLAGS		= @LDFLAGS@
+ 
+ all:	$(SWIG_LIB)
+ 
+@@ -46,7 +48,7 @@ swig: ../../pdflib/pdflib.i ../../pdflib
+ # The actual shared library for the language support
+ $(SWIG_LIB): $(SWIG_OBJ) ../../pdflib/$(LIBPDF).la ../../pdflib/pdflib.h
+ 	$(RM) $(SWIG_LIB)
+-	$(LIBTOOL) --mode=link $(CC) -o $@ $(SWIG_OBJ) -rpath $(LANG_LIBDIR) -module $(PDFLIBCONVENIENT)
++	$(LIBTOOL) --mode=link $(CC) -o $@ $(LDFLAGS) $(SWIG_OBJ) -rpath $(LANG_LIBDIR) -module $(PDFLIBCONVENIENT)
+ 	@-if test -f .libs/libpdflib_py.dylib; then		\
+ 	    ln .libs/libpdflib_py.dylib .libs/pdflib_py.so;	\
+ 	fi
+--- pdflib-4.0.3/bind/tcl/Makefile.in.orig	2022-07-29 20:01:45.083593872 +0200
++++ pdflib-4.0.3/bind/tcl/Makefile.in	2022-07-29 20:18:44.164739702 +0200
+@@ -34,6 +34,8 @@ SWIG_LIB	= pdflib_tcl.la
+ SWIG_OBJ	= pdflib_tcl.lo
+ 
+ DEFINES		= -I../../pdflib @TCLINCLUDE@ @DEFINES@
++CPPFLAGS	= @CPPFLAGS@
++LDFLAGS		= @LDFLAGS@
+ 
+ all:	$(SWIG_LIB)
+ 
+@@ -47,7 +49,7 @@ swig: ../../pdflib/pdflib.i ../../pdflib
+ # The actual shared library for the language support
+ $(SWIG_LIB): $(SWIG_OBJ) ../../pdflib/$(LIBPDF).la ../../pdflib/pdflib.h
+ 	$(RM) $(SWIG_LIB)
+-	$(LIBTOOL) --mode=link $(CC) -o $@ $(SWIG_OBJ) -rpath $(LANG_LIBDIR) -module $(PDFLIBCONVENIENT)
++	$(LIBTOOL) --mode=link $(CC) -o $@ $(LDFLAGS) $(SWIG_OBJ) -rpath $(LANG_LIBDIR) -module $(PDFLIBCONVENIENT)
+ 	@-if test -f .libs/libpdflib_tcl.dylib; then			\
+ 	    ln .libs/libpdflib_tcl.dylib .libs/pdflib_tcl.dylib;	\
+ 	fi
+--- pdflib-4.0.3/pdflib/Makefile.in.orig	2022-07-29 20:01:45.093593817 +0200
++++ pdflib-4.0.3/pdflib/Makefile.in	2022-07-29 20:19:11.854589693 +0200
+@@ -28,6 +28,8 @@ PNGLIBINC	= @PNGLIBINC@
+ PDFLIBLINKSELF	= @PDFLIBLINKSELF@
+ 
+ CFLAGS		= @DEFS@ @DEFINES@ $(TIFFLIBINC) $(ZLIBINC) $(PNGLIBINC)
++CPPFLAGS	= @CPPFLAGS@
++LDFLAGS		= @LDFLAGS@
+ 
+ .SUFFIXES: .c .$(OBJ) .lo
+ 
