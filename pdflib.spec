@@ -14,6 +14,8 @@
 
 %define		skip_post_check_so	pdflib_pl.so.0.0.0 pdflib_tcl.so.0.0.0 pdflib_py.so.0.0.0
 
+%{?with_java:%{?use_default_jdk}}
+
 Summary:	Portable C library for dynamically generating PDF files
 Summary(pl.UTF-8):	Przenośna biblioteka C do dynamicznego generowania plików PDF
 Name:		pdflib
@@ -32,10 +34,11 @@ Patch5:		%{name}-build.patch
 Patch6:		%{name}-libpng.patch
 Patch7:		format-security.patch
 Patch8:		%{name}-flags.patch
+Patch9:		java-paths.patch
 URL:		https://www.pdflib.com/
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?with_java:BuildRequires:	jdk >= 1.4}
+%{?with_java:%{?use_jdk:%buildrequires_jdk}%{!?use_jdk:BuildRequires:	jdk >= 1.4}}
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool >= 1:1.4.2-9
@@ -44,7 +47,7 @@ BuildRequires:	python-devel >= 2.2
 BuildRequires:	python-modules >= 2.2
 BuildRequires:	rpm-perlprov >= 4.1-13
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.745
+BuildRequires:	rpmbuild(macros) >= 2.021
 BuildRequires:	tcl-devel
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -155,6 +158,7 @@ Dowiązania pythona dla pdflib.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 %build
 %{__libtoolize}
@@ -174,7 +178,10 @@ Dowiązania pythona dla pdflib.
 	--with-pnglib \
 	--with-tifflib
 
-%{__make}
+%{__make} \
+	JAVA="%{java_home}/bin/java" \
+	JAVAC="%{java_home}/bin/javac" \
+	JAR="%{java_home}/bin/jar"
 
 %install
 rm -rf $RPM_BUILD_ROOT

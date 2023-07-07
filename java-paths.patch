@@ -1,0 +1,69 @@
+--- pdflib-4.0.3/bind/java/Makefile.in.orig	2023-07-07 13:17:05.446670459 +0200
++++ pdflib-4.0.3/bind/java/Makefile.in	2023-07-07 13:20:23.600863506 +0200
+@@ -15,6 +15,9 @@
+ CC		= @CC@
+ RM      	= @RM@
+ LIBTOOL		= $(top_builddir)/libtool --silent
++JAVA		= java
++JAVAC		= javac
++JAR		= jar
+ prefix 		= @prefix@
+ exec_prefix 	= @exec_prefix@
+ 
+@@ -58,8 +61,8 @@
+ pdflib.jar: pdflib.java
+ 	$(RM) com
+ 	mkdir -p com/pdflib
+-	javac pdflib.java && mv pdflib.class com/pdflib
+-	jar cvf pdflib.jar com/pdflib/pdflib.class
++	$(JAVAC) pdflib.java && mv pdflib.class com/pdflib
++	$(JAR) cvf pdflib.jar com/pdflib/pdflib.class
+ 	$(RM) com
+ 
+ javadoc:
+@@ -68,31 +71,31 @@
+ 	-javadoc -notree -author -version -d javadoc -public pdflib.java
+ 
+ test: $(SWIG_LIB) pdflib.jar
+-	CLASSPATH=$$CLASSPATH:pdflib.jar:. javac hello.java
++	CLASSPATH=$$CLASSPATH:pdflib.jar:. $(JAVAC) hello.java
+ 	CLASSPATH=$$CLASSPATH:pdflib.jar:. $(LIBTOOL) --mode=execute \
+-	    -dlopen $(SWIG_LIB) java hello
+-	CLASSPATH=$$CLASSPATH:pdflib.jar:. javac image.java
++	    -dlopen $(SWIG_LIB) $(JAVA) hello
++	CLASSPATH=$$CLASSPATH:pdflib.jar:. $(JAVAC) image.java
+ 	CLASSPATH=$$CLASSPATH:pdflib.jar:. $(LIBTOOL) --mode=execute \
+-	    -dlopen $(SWIG_LIB) java image
+-	CLASSPATH=$$CLASSPATH:pdflib.jar:. javac pdfclock.java
++	    -dlopen $(SWIG_LIB) $(JAVA) image
++	CLASSPATH=$$CLASSPATH:pdflib.jar:. $(JAVAC) pdfclock.java
+ 	CLASSPATH=$$CLASSPATH:pdflib.jar:. $(LIBTOOL) --mode=execute \
+-	    -dlopen $(SWIG_LIB) java pdfclock
++	    -dlopen $(SWIG_LIB) $(JAVA) pdfclock
+ 
+ pditest: test 
+-	CLASSPATH=$$CLASSPATH:pdflib.jar:. javac personalize.java
++	CLASSPATH=$$CLASSPATH:pdflib.jar:. $(JAVAC) personalize.java
+ 	CLASSPATH=$$CLASSPATH:pdflib.jar:. $(LIBTOOL) --mode=execute \
+-	    -dlopen $(SWIG_LIB) java personalize
+-	CLASSPATH=$$CLASSPATH:pdflib.jar:. javac quickreference.java
++	    -dlopen $(SWIG_LIB) $(JAVA) personalize
++	CLASSPATH=$$CLASSPATH:pdflib.jar:. $(JAVAC) quickreference.java
+ 	CLASSPATH=$$CLASSPATH:pdflib.jar:. $(LIBTOOL) --mode=execute \
+-	    -dlopen $(SWIG_LIB) java quickreference
++	    -dlopen $(SWIG_LIB) $(JAVA) quickreference
+ 
+ ibmpditest: test 
+-	CLASSPATH=$$CLASSPATH:pdflib.jar:. javac personalize-ibm.java
++	CLASSPATH=$$CLASSPATH:pdflib.jar:. $(JAVAC) personalize-ibm.java
+ 	CLASSPATH=$$CLASSPATH:pdflib.jar:. $(LIBTOOL) --mode=execute \
+-	    -dlopen $(SWIG_LIB) java personalize-ibm
+-	CLASSPATH=$$CLASSPATH:pdflib.jar:. javac quickreference-ibm.java
++	    -dlopen $(SWIG_LIB) $(JAVA) personalize-ibm
++	CLASSPATH=$$CLASSPATH:pdflib.jar:. $(JAVAC) quickreference-ibm.java
+ 	CLASSPATH=$$CLASSPATH:pdflib.jar:. $(LIBTOOL) --mode=execute \
+-	    -dlopen $(SWIG_LIB) java quickreference-ibm
++	    -dlopen $(SWIG_LIB) $(JAVA) quickreference-ibm
+ 
+ install: $(SWIG_LIB) pdflib.jar
+ 	$(INSTALL) -d $(DESTDIR)$(LANG_LIBDIR)
