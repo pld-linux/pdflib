@@ -166,6 +166,7 @@ Dowiązania pythona dla pdflib.
 %{__autoconf}
 %configure \
 	CFLAGS="-DUSE_INTERP_RESULT %{rpmcflags}" \
+	PYTHONBIN="%{__python}" \
 	--enable-cxx \
 	%{?with_java:--with-java=%{java_home}}%{!?with_java:--without-java} \
 	--with-py=%{py_sitedir} \
