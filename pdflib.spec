@@ -35,6 +35,7 @@ Patch6:		%{name}-libpng.patch
 Patch7:		format-security.patch
 Patch8:		%{name}-flags.patch
 Patch9:		java-paths.patch
+Patch10:	pdflib-python.patch
 URL:		https://www.pdflib.com/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -159,6 +160,7 @@ Dowiązania pythona dla pdflib.
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
 
 %build
 %{__libtoolize}

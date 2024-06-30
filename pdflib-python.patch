@@ -1,0 +1,11 @@
+--- PDFlib-Lite-7.0.5p3/configure.in.orig	2012-06-06 13:58:57.000000000 +0200
++++ PDFlib-Lite-7.0.5p3/configure.in	2024-06-30 15:16:35.518009402 +0200
+@@ -894,7 +894,7 @@
+ 	if test "$PYTHONBIN" = "nope" ; then
+ 	    WITH_PYTHON=no
+ 	else
+-	    PYTHONLIBDIR=`cat << EOF | python
++	    PYTHONLIBDIR=`cat << EOF | $PYTHONBIN
+ import sys
+ import string
+ print string.join(filter(lambda x: -1 != string.find(x, 'dynload'), sys.path))
