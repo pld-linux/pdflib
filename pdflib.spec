@@ -36,6 +36,7 @@ Patch7:		format-security.patch
 Patch8:		%{name}-flags.patch
 Patch9:		java-paths.patch
 Patch10:	pdflib-python.patch
+Patch11:	types.patch
 URL:		https://www.pdflib.com/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -161,6 +162,7 @@ Dowiązania pythona dla pdflib.
 %patch -P8 -p1
 %patch -P9 -p1
 %patch -P10 -p1
+%patch -P11 -p1
 
 %build
 %{__libtoolize}

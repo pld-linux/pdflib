@@ -1,0 +1,668 @@
+--- pdflib-4.0.3/bind/tcl/pdflib_tcl.c.orig	2025-07-31 01:38:16.762612382 +0200
++++ pdflib-4.0.3/bind/tcl/pdflib_tcl.c	2025-07-31 01:48:17.309634304 +0200
+@@ -542,7 +542,7 @@
+ #endif
+ 
+ static int
+-_wrap_PDF_new(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_new(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     char versionbuf[32];
+     EXC_STUFF;
+@@ -583,7 +583,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_delete(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_delete(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     EXC_STUFF;
+ 
+@@ -605,7 +605,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_open_file(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_open_file(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     int _result;
+     PDF *p;
+     char *_arg1;
+@@ -632,7 +632,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_close(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_close(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     EXC_STUFF;
+ 
+@@ -699,7 +699,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_begin_page(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_begin_page(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -726,7 +726,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_end_page(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_end_page(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     EXC_STUFF;
+ 
+@@ -748,7 +748,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_set_parameter(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_set_parameter(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     char *_arg1;
+     char *_arg2;
+@@ -784,7 +784,7 @@
+     return TCL_OK;
+ }
+ 
+-static int _wrap_PDF_get_parameter(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++static int _wrap_PDF_get_parameter(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     char * _result;
+     PDF *p;
+     char *_arg1;
+@@ -812,7 +812,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_set_value(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_set_value(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+ 
+     PDF *p;
+     char *_arg1;
+@@ -840,7 +840,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_get_value(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_get_value(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+ 
+     float _result;
+     PDF *p;
+@@ -869,7 +869,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_findfont(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_findfont(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     int _result;
+     PDF *p;
+     char *_arg1;
+@@ -906,7 +906,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_setfont(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_setfont(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     int _arg1;
+     float _arg2;
+@@ -1136,7 +1136,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_set_text_pos(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_set_text_pos(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -1216,7 +1216,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_setdash(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_setdash(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -1295,7 +1295,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_setflat(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_setflat(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     EXC_STUFF;
+@@ -1319,7 +1319,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_setlinejoin(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_setlinejoin(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     int _arg1;
+     EXC_STUFF;
+@@ -1348,7 +1348,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_setlinecap(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_setlinecap(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     int _arg1;
+     EXC_STUFF;
+@@ -1377,7 +1377,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_setmiterlimit(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_setmiterlimit(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     EXC_STUFF;
+@@ -1402,7 +1402,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_setlinewidth(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_setlinewidth(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     EXC_STUFF;
+@@ -1427,7 +1427,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_save(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_save(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     EXC_STUFF;
+ 
+@@ -1449,7 +1449,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_restore(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_restore(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     EXC_STUFF;
+ 
+@@ -1471,7 +1471,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_translate(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_translate(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -1498,7 +1498,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_scale(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_scale(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -1525,7 +1525,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_rotate(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_rotate(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     EXC_STUFF;
+@@ -1550,7 +1550,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_skew(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_skew(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -1576,7 +1576,7 @@
+     return TCL_OK;
+ }
+ 
+-static int _wrap_PDF_concat(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++static int _wrap_PDF_concat(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -1613,7 +1613,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_moveto(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_moveto(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -1640,7 +1640,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_lineto(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_lineto(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -1667,7 +1667,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_curveto(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_curveto(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -1702,7 +1702,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_circle(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_circle(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -1730,7 +1730,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_arc(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_arc(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -1763,7 +1763,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_rect(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_rect(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -1794,7 +1794,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_closepath(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_closepath(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     EXC_STUFF;
+ 
+@@ -1816,7 +1816,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_stroke(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_stroke(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     EXC_STUFF;
+ 
+@@ -1838,7 +1838,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_closepath_stroke(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_closepath_stroke(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     EXC_STUFF;
+ 
+@@ -1860,7 +1860,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_fill(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_fill(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     EXC_STUFF;
+ 
+@@ -1882,7 +1882,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_fill_stroke(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_fill_stroke(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     EXC_STUFF;
+ 
+@@ -1904,7 +1904,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_closepath_fill_stroke(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_closepath_fill_stroke(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     EXC_STUFF;
+ 
+@@ -1926,7 +1926,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_endpath(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_endpath(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     EXC_STUFF;
+ 
+@@ -1948,7 +1948,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_clip(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_clip(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     EXC_STUFF;
+ 
+@@ -1970,7 +1970,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_setgray_fill(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_setgray_fill(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     EXC_STUFF;
+@@ -1995,7 +1995,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_setgray_stroke(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_setgray_stroke(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     EXC_STUFF;
+@@ -2020,7 +2020,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_setgray(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_setgray(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     EXC_STUFF;
+@@ -2045,7 +2045,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_setrgbcolor_fill(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_setrgbcolor_fill(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -2074,7 +2074,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_setrgbcolor_stroke(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_setrgbcolor_stroke(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -2103,7 +2103,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_setrgbcolor(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_setrgbcolor(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -2132,7 +2132,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_place_image(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_place_image(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     int _arg1;
+     float _arg2;
+@@ -2269,7 +2269,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_close_image(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_close_image(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     int _arg1;
+     EXC_STUFF;
+@@ -2298,7 +2298,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_open_image_file(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_open_image_file(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     int _result;
+     PDF *p;
+     char *_arg1;
+@@ -2335,7 +2335,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_open_CCITT(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_open_CCITT(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     int _result;
+     PDF *p;
+     char *_arg1;
+@@ -2644,7 +2644,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_add_pdflink(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_add_pdflink(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -2685,7 +2685,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_add_launchlink(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_add_launchlink(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -2718,7 +2718,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_add_locallink(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_add_locallink(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -2757,7 +2757,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_add_weblink(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_add_weblink(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -2790,7 +2790,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_set_border_style(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_set_border_style(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     char *_arg1;
+     float _arg2;
+@@ -2817,7 +2817,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_set_border_color(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_set_border_color(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -2846,7 +2846,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_set_border_dash(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_set_border_dash(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -2872,7 +2872,7 @@
+     return TCL_OK;
+ }
+ 
+-static int _wrap_PDF_open_pdi(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++static int _wrap_PDF_open_pdi(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     int _result;
+     PDF *p;
+     char *_arg1;
+@@ -2901,7 +2901,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_close_pdi(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_close_pdi(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     int _arg1;
+     EXC_STUFF;
+@@ -2924,7 +2924,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_open_pdi_page(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_open_pdi_page(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     int _result;
+     PDF *p;
+     int _arg1;
+@@ -2953,7 +2953,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_place_pdi_page(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_place_pdi_page(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     int _arg1;
+     float _arg2;
+@@ -2984,7 +2984,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_close_pdi_page(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_close_pdi_page(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     int _arg1;
+     EXC_STUFF;
+@@ -3007,7 +3007,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_get_pdi_parameter(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_get_pdi_parameter(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     char * _result;
+     PDF *p;
+     char *_arg1;
+@@ -3040,7 +3040,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_get_pdi_value(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_get_pdi_value(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     float _result;
+     PDF *p;
+     char *_arg1;
+@@ -3071,7 +3071,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_makespotcolor(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_makespotcolor(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     int _result;
+     PDF *p;
+     char *_arg1;
+@@ -3098,7 +3098,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_setcolor(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_setcolor(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     char *_arg1;
+     char *_arg2;
+@@ -3131,7 +3131,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_begin_pattern(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_begin_pattern(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     int _result;
+     PDF *p;
+     float _arg1;
+@@ -3164,7 +3164,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_end_pattern(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_end_pattern(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+ 
+     PDF *p;
+     EXC_STUFF;
+@@ -3186,7 +3186,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_begin_template(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_begin_template(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+ 
+     int _result;
+     PDF *p;
+@@ -3214,7 +3214,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_end_template(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_end_template(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+ 
+     PDF *p;
+     EXC_STUFF;
+@@ -3235,7 +3235,7 @@
+     return TCL_OK;
+ }
+ 
+-static int _wrap_PDF_arcn(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++static int _wrap_PDF_arcn(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+ 
+     PDF *p;
+     float _arg1;
+@@ -3267,7 +3267,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_add_thumbnail(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_add_thumbnail(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+ 
+     PDF *p;
+     int _arg1;
+@@ -3291,7 +3291,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_setmatrix(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_setmatrix(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     float _arg1;
+     float _arg2;
+@@ -3324,7 +3324,7 @@
+ }
+ 
+ static int
+-_wrap_PDF_initgraphics(ClientData clientData, Tcl_Interp *interp, int argc, char *argv[]) {
++_wrap_PDF_initgraphics(ClientData clientData, Tcl_Interp *interp, int argc, const char *argv[]) {
+     PDF *p;
+     EXC_STUFF;
+ 
